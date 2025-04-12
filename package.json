@@ -1,0 +1,16 @@
+{
+  "name": "com.xun.hierarchy",
+  "version": "1.0.0",
+  "displayName": "Xhierarchy",
+  "description": "The hierarchy tool for unity.",
+  "unity": "2020.3",
+  "unityRelease": "26f1",
+  "dependencies": {
+ },
+ "keywords": [
+    "hierarchy"
+  ],
+  "author": {
+    "name": "Xun"
+  }
+}

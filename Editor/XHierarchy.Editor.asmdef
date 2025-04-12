@@ -1,0 +1,18 @@
+{
+    "name": "XHierarchy.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a4a5e56e5f6fe134b9a9f180f0ed785d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
