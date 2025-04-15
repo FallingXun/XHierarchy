@@ -16,6 +16,7 @@ namespace XHierarchy
         static object treeViewController;
         static int a = 0;
         static bool s = true;
+        static HierarchyLinesModule module = new HierarchyLinesModule();
         [InitializeOnLoadMethod]
         private static void Init()
         {
@@ -31,7 +32,7 @@ namespace XHierarchy
                 m_LineTexture.SetPixels(new Color[] { Color.white });
             }
 
-
+            module.Init();
         }
 
         static void CheckIfFocusedWindowChanged()
@@ -55,14 +56,17 @@ namespace XHierarchy
             {
                 return;
             }
-            if(GUI.Button(new Rect(selectionRect.xMax - 16, selectionRect.yMin, 16, 16),"T"))
-            {
-                if (go.name == "Image")
-                {
-                    md?.Invoke(treeViewController, new object[] { instanceID, s });
-                    s = !s;
-                }
-            }
+            //Debug.Log(go.name + "    " + go.GetInstanceID() + "    " + selectionRect);
+            module.OnItemGUI(go, selectionRect);
+            //var size = GUI.skin.label.CalcSize(new GUIContent(go.name));
+            //if (GUI.Button(new Rect(selectionRect.xMin + size.x + 14, selectionRect.yMin, 16, 16), "T"))
+            //{
+            //    if (go.name == "Image")
+            //    {
+            //        md?.Invoke(treeViewController, new object[] { instanceID, s });
+            //        s = !s;
+            //    }
+            //}
 
 
 
