@@ -35,11 +35,6 @@ namespace XHierarchy
 
         public void OnItemGUI(GameObject go, Rect rect)
         {
-            if(Enabled == false)
-            {
-                return;
-            }
-
             var depth = GetDepth(rect);
 
             m_DepthLastDict.Clear();
