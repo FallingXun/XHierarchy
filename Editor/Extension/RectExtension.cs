@@ -57,6 +57,22 @@ namespace XHierarchy
             return rect;
         }
 
+        public static Rect SetWidthFromRight(this Rect rect, float width)
+        {
+            rect.x += rect.width;
+            rect.width = width;
+            rect.x -= width;
+            return rect;
+        }
+
+        public static Rect SetHeightFromBottom(this Rect rect, float height)
+        {
+            rect.y += rect.height;
+            rect.height = height;
+            rect.y -= height;
+            return rect;
+        }
+
         public static Rect SetPosition(this Rect rect, Vector2 postion)
         {
             rect.position = postion;
@@ -87,6 +103,7 @@ namespace XHierarchy
             return rect;
         }
 
+
         #endregion
 
         #region Rect Modify
@@ -105,13 +122,13 @@ namespace XHierarchy
 
         public static Rect AddWidth(this Rect rect, float width)
         {
-            rect.width += width;
+            rect.width = Mathf.Max(rect.width + width, 0);
             return rect;
         }
 
         public static Rect AddHeight(this Rect rect, float height)
         {
-            rect.height += height;
+            rect.height = Mathf.Max(rect.height + height, 0);
             return rect;
         }
 
@@ -131,6 +148,22 @@ namespace XHierarchy
             GUI.DrawTexture(rect, texture);
 
             return rect;
+        }
+
+        public static Rect DrawBackground(this Rect rect, Color color)
+        {
+            EditorGUI.DrawRect(rect, color);
+
+            return rect;
+        }
+
+        #endregion
+
+
+        #region Rect Event
+        public static bool IsHovered(this Rect rect)
+        {
+            return rect.Contains(Event.current.mousePosition);
         }
 
         #endregion

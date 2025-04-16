@@ -3,67 +3,91 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using System;
 
 namespace XHierarchy
 {
     [InitializeOnLoad]
     public class HiererchyPatch
     {
-        private static List<IModule> m_ModuleList = new List<IModule>
-        {
-            new HierarchyLinesModule(),
-        };
-
         private static bool m_Init = false;
+        private static IConfig m_Config = null;
 
-        public HiererchyPatch()
+        [InitializeOnLoadMethod]
+        private static void Init()
         {
-            EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemGUI;
-            EditorApplication.hierarchyWindowItemOnGUI = OnHierarchyWindowItemGUI + EditorApplication.hierarchyWindowItemOnGUI;
-            EditorApplication.update -= OnUpdate;
-            EditorApplication.update += OnUpdate;
-        }
+            if (m_Init == false)
+            {
+                EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemGUI;
+                EditorApplication.hierarchyWindowItemOnGUI = OnHierarchyWindowItemGUI + EditorApplication.hierarchyWindowItemOnGUI;
+                EditorApplication.update -= OnUpdate;
+                EditorApplication.update += OnUpdate;
+                var hierarchyData = AssetDatabase.LoadAssetAtPath<HierarchyData>(Const.HIERARCHY_ASSET_PATH);
+                if (hierarchyData == null)
+                {
+                    throw new Exception("Hierarchy Data Asset is missing, please use 'XHierarchy/Data/Create Hierarchy Data Asset' to generate!");
+                }
+                m_Config = hierarchyData.Config;
+                if (m_Config == null)
+                {
+                    throw new Exception("Hierarchy Config is missing, please delete the 'HierarchyData.asset' and use 'XHierarchy/Data/Create Hierarchy Data Asset' to regenerate!");
+                }
 
+                foreach (var module in m_Config.Modules)
+                {
+                    module.Init(m_Config);
+                }
+                m_Init = true;
+            }
+        }
 
         private static void OnHierarchyWindowItemGUI(int instanceID, Rect selectionRect)
         {
             if (m_Init == false)
             {
-                foreach (var module in m_ModuleList)
-                {
-                    module.Init();
-                }
-                m_Init = true;
+                return;
             }
-
-            foreach (var module in m_ModuleList)
+            var availableRect = selectionRect;
+            var obj = EditorUtility.InstanceIDToObject(instanceID);
+            if (obj is GameObject go)
             {
-                if (module.Enabled)
+                var nameSize = GUI.skin.label.CalcSize(new GUIContent(go.name));
+                availableRect = selectionRect.MoveX(Const.ICON_SIZE + nameSize.x + m_Config.GameObjectGUILeftOffset)
+                                            .AddWidth(-(Const.ICON_SIZE + nameSize.x + m_Config.GameObjectGUILeftOffset + m_Config.GameObjectGUIRightOffset));
+                foreach (var module in m_Config.Modules)
                 {
-                    var obj = EditorUtility.InstanceIDToObject(instanceID);
-                    if (obj is GameObject go)
+                    if (module.Enabled)
                     {
-                        module.OnItemGUI(go, selectionRect);
+                        availableRect = module.OnItemGUI(go, selectionRect, availableRect);
                     }
-                    else
+                }
+            }
+            else
+            {
+                for (int i = 0; i < EditorSceneManager.sceneCount; i++)
+                {
+                    var scene = EditorSceneManager.GetSceneAt(i);
+                    if (scene.GetHashCode() == instanceID)
                     {
-                        for (int i = 0; i < EditorSceneManager.sceneCount; i++)
+                        foreach (var module in m_Config.Modules)
                         {
-                            var scene = EditorSceneManager.GetSceneAt(i);
-                            if (scene.GetHashCode() == instanceID)
+                            if (module.Enabled)
                             {
-                                module.OnSceneGUI(scene, selectionRect);
+                                availableRect = module.OnSceneGUI(scene, selectionRect, availableRect);
                             }
                         }
                     }
                 }
             }
-
         }
+
 
         private static void OnUpdate()
         {
-
+            if (m_Init == false)
+            {
+                return;
+            }
         }
     }
 

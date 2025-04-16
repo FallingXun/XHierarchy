@@ -26,6 +26,14 @@ namespace XHierarchy
         /// Í¼±ê³ß´ç
         /// </summary>
         public const float ICON_SIZE = 16;
+
+        public const string PACKAGE_NAME = "Packages/com.xun.hierarchy";
+
+        public const string HIERARCHY_ASSET_PATH = PACKAGE_NAME + "/Editor/HierarchyData.asset";
+
+        public const string DEFAULT_CONFIG_PATH = PACKAGE_NAME + "/Editor/ConfigData.asset";
+
+
     }
 
 }

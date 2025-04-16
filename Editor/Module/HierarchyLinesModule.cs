@@ -20,6 +20,7 @@ namespace XHierarchy
         {
             get
             {
+                return true;
                 return Utils.GetModuleEnabled(Name);
             }
             set
@@ -28,14 +29,14 @@ namespace XHierarchy
             }
         }
 
-        public void Init()
+        public void Init(IConfig config)
         {
 
         }
 
-        public void OnItemGUI(GameObject go, Rect rect)
+        public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
         {
-            var depth = GetDepth(rect);
+            var depth = GetDepth(selectionRect);
 
             m_DepthLastDict.Clear();
             var tf = go.transform.parent;
@@ -63,14 +64,14 @@ namespace XHierarchy
                         // 当前深度的最后一个节点在此节点之前，此节点不需要绘制此深度
                         continue;
                     }
-                    rect.SetX(Const.ITEM_START_X + (i - 0.5f) * Const.ITEM_INDENT)
+                    selectionRect.SetX(Const.ITEM_START_X + (i - 0.5f) * Const.ITEM_INDENT)
                         .SetWidth(Const.HIERARCHY_LINE_THICKNESS)
                         .SetHeight(isLastIndex && i == depth ? Const.ITEM_HEIGHT / 2 : Const.ITEM_HEIGHT)
                         .DrawLine(Color.gray);
                 }
                 if (depth > 0)
                 {
-                    rect.SetX(Const.ITEM_START_X + (depth - 0.5f) * Const.ITEM_INDENT)
+                    selectionRect.SetX(Const.ITEM_START_X + (depth - 0.5f) * Const.ITEM_INDENT)
                         .MoveY(Const.ITEM_HEIGHT / 2)
                         .SetWidth(hasChildren ? Const.ITEM_INDENT / 2 : Const.ITEM_INDENT)
                         .SetHeight(Const.HIERARCHY_LINE_THICKNESS)
@@ -78,11 +79,12 @@ namespace XHierarchy
                 }
 
             }
+            return availableRect;
         }
 
-        public void OnSceneGUI(Scene scene, Rect rect)
+        public Rect OnSceneGUI(Scene scene, Rect selectionRect, Rect availableRect)
         {
-
+            return availableRect;
         }
 
 

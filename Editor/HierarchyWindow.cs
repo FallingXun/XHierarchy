@@ -17,7 +17,7 @@ namespace XHierarchy
         static int a = 0;
         static bool s = true;
         static HierarchyLinesModule module = new HierarchyLinesModule();
-        [InitializeOnLoadMethod]
+       
         private static void Init()
         {
             EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemGUI;
@@ -26,13 +26,8 @@ namespace XHierarchy
             EditorApplication.update += CheckIfFocusedWindowChanged;
 
 
-            if (m_LineTexture == null)
-            {
-                m_LineTexture = new Texture2D(1, 1);
-                m_LineTexture.SetPixels(new Color[] { Color.white });
-            }
 
-            module.Init();
+            //module.Init();
         }
 
         static void CheckIfFocusedWindowChanged()
@@ -57,7 +52,6 @@ namespace XHierarchy
                 return;
             }
             //Debug.Log(go.name + "    " + go.GetInstanceID() + "    " + selectionRect);
-            module.OnItemGUI(go, selectionRect);
             //var size = GUI.skin.label.CalcSize(new GUIContent(go.name));
             //if (GUI.Button(new Rect(selectionRect.xMin + size.x + 14, selectionRect.yMin, 16, 16), "T"))
             //{

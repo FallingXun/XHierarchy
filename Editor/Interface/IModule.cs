@@ -11,11 +11,11 @@ namespace XHierarchy
 
         bool Enabled { get; set; }
 
-        void Init();
+        void Init(IConfig config);
 
-        void OnItemGUI(GameObject go, Rect rect);
+        Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect);
 
-        void OnSceneGUI(Scene scene, Rect rect);
+        Rect OnSceneGUI(Scene scene, Rect selectionRect, Rect availableRect);
     }
 }
 

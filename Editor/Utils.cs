@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 namespace XHierarchy
 {
@@ -16,6 +17,14 @@ namespace XHierarchy
             PlayerPrefs.SetInt(name, enabled ? 1 : 0);
 
         }
+
+
+        public static string GetPackageRootPath()
+        {
+            var path = Path.GetFullPath(Const.PACKAGE_NAME);
+            return path;
+        }
+
     }
 
 }
