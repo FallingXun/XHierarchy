@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEditor;
+using System.Reflection;
 
 namespace XHierarchy
 {
@@ -84,8 +85,14 @@ namespace XHierarchy
                 if (iconData.rect.IsHovered())
                 {
                     iconData.rect.DrawBackground(m_HoverBackgroundColor);
+                    iconData.rect.MarkHotRegion();
                 }
                 var color = GUI.color;
+                GUI.color = Color.clear;
+                if (GUI.Button(iconData.rect, ""))
+                {
+                    ComponentWindow.Create(Vector2.zero, iconData.component, iconData.icon);
+                }
                 GUI.color = Color.gray;
                 iconData.rect.DrawIcon(iconData.icon);
                 GUI.color = color;
@@ -112,6 +119,7 @@ namespace XHierarchy
             }
             return Texture2D.grayTexture;
         }
+
     }
 
     public struct IconData

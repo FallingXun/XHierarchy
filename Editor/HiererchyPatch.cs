@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using System;
+using System.Reflection;
 
 namespace XHierarchy
 {
@@ -22,6 +23,7 @@ namespace XHierarchy
                 EditorApplication.hierarchyWindowItemOnGUI = OnHierarchyWindowItemGUI + EditorApplication.hierarchyWindowItemOnGUI;
                 EditorApplication.update -= OnUpdate;
                 EditorApplication.update += OnUpdate;
+
                 var hierarchyData = AssetDatabase.LoadAssetAtPath<HierarchyData>(Const.HIERARCHY_ASSET_PATH);
                 if (hierarchyData == null)
                 {
@@ -88,7 +90,11 @@ namespace XHierarchy
             {
                 return;
             }
+
         }
+
+
+
     }
 
 }

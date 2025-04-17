@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Reflection;
 
 namespace XHierarchy
 {
@@ -97,12 +98,17 @@ namespace XHierarchy
             return rect;
         }
 
+        public static Rect SetSize(this Rect rect, float width, float height)
+        {
+            rect.size = new Vector2(width, height);
+            return rect;
+        }
+
         public static Rect SetSize(this Rect rect, Vector2 size)
         {
             rect.size = size;
             return rect;
         }
-
 
         #endregion
 
@@ -116,6 +122,13 @@ namespace XHierarchy
 
         public static Rect MoveY(this Rect rect, float y)
         {
+            rect.y += y;
+            return rect;
+        }
+
+        public static Rect Move(this Rect rect, float x, float y)
+        {
+            rect.x += x;
             rect.y += y;
             return rect;
         }
@@ -164,6 +177,37 @@ namespace XHierarchy
         public static bool IsHovered(this Rect rect)
         {
             return rect.Contains(Event.current.mousePosition);
+        }
+
+        public static bool IsMouseDown(this Rect rect)
+        {
+            if (Event.current.type == EventType.MouseDown)
+            {
+                return rect.Contains(Event.current.mousePosition);
+            }
+            return false;
+        }
+
+        public static bool IsMouseUp(this Rect rect)
+        {
+            if (Event.current.type == EventType.MouseUp)
+            {
+                return rect.Contains(Event.current.mousePosition);
+            }
+            return false;
+        }
+
+        public static void MarkHotRegion(this Rect rect)
+        {
+            if (Event.current.type != EventType.Repaint)
+            {
+                return;
+            }
+            Rect unclipRect = (Rect)ReflectUtils.GUIClip_UnclipToWindow?.Invoke(null, new object[] { rect });
+
+            var current = ReflectUtils.GUIView_current?.GetValue(null);
+
+            ReflectUtils.GUIView_MarkHotRegion?.Invoke(current, new object[] { unclipRect });
         }
 
         #endregion
