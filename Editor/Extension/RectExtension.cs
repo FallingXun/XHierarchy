@@ -74,6 +74,12 @@ namespace XHierarchy
             return rect;
         }
 
+        public static Rect SetPosition(this Rect rect, float x, float y)
+        {
+            rect.position = new Vector2(x, y);
+            return rect;
+        }
+
         public static Rect SetPosition(this Rect rect, Vector2 postion)
         {
             rect.position = postion;
@@ -170,6 +176,19 @@ namespace XHierarchy
             return rect;
         }
 
+        public static Rect DrawOutline(this Rect rect, Color color, float thickness = 1)
+        {
+
+            rect.SetWidth(thickness).DrawLine(color);
+            rect.SetWidthFromRight(thickness).DrawLine(color);
+
+            rect.SetHeight(thickness).DrawLine(color);
+            rect.SetHeightFromBottom(thickness).DrawLine(color);
+
+            return rect;
+
+        }
+
         #endregion
 
 
@@ -196,6 +215,16 @@ namespace XHierarchy
             }
             return false;
         }
+
+        public static bool IsMouseDrag(this Rect rect)
+        {
+            if (Event.current.type == EventType.MouseDrag)
+            {
+                return rect.Contains(Event.current.mousePosition);
+            }
+            return false;
+        }
+
 
         public static void MarkHotRegion(this Rect rect)
         {

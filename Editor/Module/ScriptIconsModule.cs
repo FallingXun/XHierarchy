@@ -82,20 +82,11 @@ namespace XHierarchy
             });
             foreach (var iconData in m_IconDataList)
             {
-                if (iconData.rect.IsHovered())
+                if (GUI.Button(iconData.rect, new GUIContent(iconData.icon), StyleUtils.IconButton))
                 {
-                    iconData.rect.DrawBackground(m_HoverBackgroundColor);
-                    iconData.rect.MarkHotRegion();
+                    var position = EditorGUIUtility.GUIToScreenPoint(new Vector2(iconData.rect.xMax, iconData.rect.y));
+                    ComponentWindow.Create(position, iconData.component, iconData.icon);
                 }
-                var color = GUI.color;
-                GUI.color = Color.clear;
-                if (GUI.Button(iconData.rect, ""))
-                {
-                    ComponentWindow.Create(Vector2.zero, iconData.component, iconData.icon);
-                }
-                GUI.color = Color.gray;
-                iconData.rect.DrawIcon(iconData.icon);
-                GUI.color = color;
             }
             return availableRect;
         }
@@ -115,7 +106,19 @@ namespace XHierarchy
             var content = EditorGUIUtility.ObjectContent(component, type);
             if (content != null && content.image != null)
             {
-                m_TypeIconDict[type] = content.image;
+                byte[] rawData = (content.image as Texture2D).GetRawTextureData();
+                for (int i = 0; i < rawData.Length; i++)
+                {
+                    if (i > 0 && i % 3 == 0)
+                    {
+                        continue;
+                    }
+                    rawData[i] = (byte)(rawData[i] * 0.7f);
+                }
+                Texture2D newTexture = new Texture2D(content.image.width, content.image.height);
+                newTexture.LoadRawTextureData(rawData);
+                newTexture.Apply();
+                m_TypeIconDict[type] = newTexture;
             }
             return Texture2D.grayTexture;
         }
