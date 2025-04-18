@@ -197,7 +197,7 @@ namespace XHierarchy
             if (m_IsMoving)
             {
                 var dragPosition = m_MoveStartWindowPostion + EditorGUIUtility.GUIToScreenPoint(Event.current.mousePosition) - m_MoveStartMousePosition;
-                if (Event.current.type == EventType.Repaint)
+                if (Event.current.type != EventType.Repaint)
                 {
                     position = position.SetPosition(dragPosition);
                 }
