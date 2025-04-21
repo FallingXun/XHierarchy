@@ -34,6 +34,7 @@ namespace XHierarchy
                 {
                     throw new Exception("Hierarchy Config is missing, please delete the 'HierarchyData.asset' and use 'XHierarchy/Data/Create Hierarchy Data Asset' to regenerate!");
                 }
+                m_Config.Init();
 
                 foreach (var module in m_Config.Modules)
                 {
@@ -58,7 +59,7 @@ namespace XHierarchy
                                             .AddWidth(-(Const.ICON_SIZE + nameSize.x + m_Config.GameObjectGUILeftOffset + m_Config.GameObjectGUIRightOffset));
                 foreach (var module in m_Config.Modules)
                 {
-                    if (module.Enabled)
+                    //if (module.Enabled)
                     {
                         availableRect = module.OnItemGUI(go, selectionRect, availableRect);
                     }

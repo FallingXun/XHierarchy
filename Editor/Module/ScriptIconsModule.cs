@@ -15,7 +15,6 @@ namespace XHierarchy
         private Dictionary<Type, int> m_TypeDict = new Dictionary<Type, int>();
         private Dictionary<Type, Texture> m_TypeIconDict = new Dictionary<Type, Texture>();
         private Texture m_DefaultIcon = null;
-        private Color m_HoverBackgroundColor = new Color(0.5f, 0.5f, 0.5f, 1f);
         private IConfig m_Config = null;
 
         public string Name
@@ -30,7 +29,6 @@ namespace XHierarchy
         {
             get
             {
-                return true;
                 return Utils.GetModuleEnabled(Name);
             }
             set

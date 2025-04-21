@@ -7,7 +7,8 @@ namespace XHierarchy
 {
     public interface IConfig 
     {
-
+        void Init();
+        
         List<IModule> Modules { get; }
 
         /// <summary>
@@ -24,6 +25,15 @@ namespace XHierarchy
         /// 需要处理的 Component 类型
         /// </summary>
         List<Type> HandleComponentTypes { get; }
+
+        Func<GameObject, string> NoteFunc { get; }
+
+        Action<GameObject, string> NoteApplyAction { get; }
+
+        Func<GameObject, int> IdentifierFunc { get; }
+
+        Action<GameObject, int> IdentifierApplyAction { get; }
+
     }
 
 }

@@ -20,7 +20,6 @@ namespace XHierarchy
         {
             get
             {
-                return true;
                 return Utils.GetModuleEnabled(Name);
             }
             set

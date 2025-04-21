@@ -48,20 +48,32 @@ namespace XHierarchy
 
         public static Rect SetWidth(this Rect rect, float width)
         {
-            rect.width = width;
+            rect.width = width.Max(0);
             return rect;
         }
 
         public static Rect SetHeight(this Rect rect, float height)
         {
-            rect.height = height;
+            rect.height = height.Max(0);
+            return rect;
+        }
+
+        public static Rect SetMinWidth(this Rect rect, float width)
+        {
+            rect.width = width.Min(rect.width).Max(0);
+            return rect;
+        }
+
+        public static Rect SetMinHeight(this Rect rect, float height)
+        {
+            rect.height = height.Min(rect.height).Max(0);
             return rect;
         }
 
         public static Rect SetWidthFromRight(this Rect rect, float width)
         {
             rect.x += rect.width;
-            rect.width = width;
+            rect.width = width.Max(0);
             rect.x -= width;
             return rect;
         }
@@ -69,7 +81,23 @@ namespace XHierarchy
         public static Rect SetHeightFromBottom(this Rect rect, float height)
         {
             rect.y += rect.height;
-            rect.height = height;
+            rect.height = height.Max(0);
+            rect.y -= height;
+            return rect;
+        }
+
+        public static Rect SetMinWidthFromRight(this Rect rect, float width)
+        {
+            rect.x += rect.width;
+            rect.width = width.Min(rect.width).Max(0);
+            rect.x -= width;
+            return rect;
+        }
+
+        public static Rect SetMinHeightFromBottom(this Rect rect, float height)
+        {
+            rect.y += rect.height;
+            rect.height = height.Min(rect.height).Max(0);
             rect.y -= height;
             return rect;
         }
@@ -141,13 +169,13 @@ namespace XHierarchy
 
         public static Rect AddWidth(this Rect rect, float width)
         {
-            rect.width = Mathf.Max(rect.width + width, 0);
+            rect.width = (rect.width + width).Max(0);
             return rect;
         }
 
         public static Rect AddHeight(this Rect rect, float height)
         {
-            rect.height = Mathf.Max(rect.height + height, 0);
+            rect.height = (rect.height + height).Max(0);
             return rect;
         }
 

@@ -70,6 +70,35 @@ namespace XHierarchy
                 return m_BoldLabel;
             }
         }
+
+        private static GUIStyle m_NoteButon;
+        public static GUIStyle NoteButon
+        {
+            get
+            {
+                if (m_NoteButon == null)
+                {
+                    m_NoteButon = new GUIStyle(GUI.skin.button);
+                    m_NoteButon.normal.textColor = Color.yellow;
+                }
+                return m_NoteButon;
+            }
+        }
+
+
+        private static GUIStyle m_IdentifierButon;
+        public static GUIStyle IdentifierButon
+        {
+            get
+            {
+                if (m_IdentifierButon == null)
+                {
+                    m_IdentifierButon = new GUIStyle(GUI.skin.button);
+                    m_IdentifierButon.normal.textColor = Color.green;
+                }
+                return m_IdentifierButon;
+            }
+        }
     }
 }
 
