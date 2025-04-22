@@ -7,10 +7,11 @@ namespace XHierarchy
 {
     public class AdditionalWindow : EditorWindow
     {
-        private static readonly GUIContent m_TargetContent = new GUIContent("对象");
-        private static readonly GUIContent m_NoteContent = new GUIContent("注释");
-        private static readonly GUIContent m_IdentifierContent = new GUIContent("标识号");
-        private static readonly GUIContent m_ApplyBtnContent = new GUIContent("更新");
+        private static readonly GUIContent m_TitleContent = ContentUtils.AdditionalTitleContent;
+        private static readonly GUIContent m_TargetContent = ContentUtils.ObjectContent;
+        private static readonly GUIContent m_NoteContent = ContentUtils.NoteContent;
+        private static readonly GUIContent m_IdentifierContent = ContentUtils.IdentifierContent;
+        private static readonly GUIContent m_ApplyBtnContent = ContentUtils.ApplyBtnContent;
 
         private IConfig m_Config;
         private GameObject m_Target;
@@ -22,6 +23,7 @@ namespace XHierarchy
         {
             var window = GetWindow<AdditionalWindow>();
             window.position = Rect.zero.SetPosition(position).SetWidth(350).SetHeight(300);
+            window.titleContent = m_TitleContent;
             window.Init(config, go);
         }
 
@@ -33,12 +35,16 @@ namespace XHierarchy
 
         private void OnGUI()
         {
-            EditorGUILayout.ObjectField(m_TargetContent, m_Target, typeof(GameObject), false);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(m_TargetContent, GUILayout.Width(60));
+            EditorGUILayout.ObjectField(m_Target, typeof(GameObject), false);
+            EditorGUILayout.EndHorizontal();
 
             m_ScrollPosition = EditorGUILayout.BeginScrollView(m_ScrollPosition);
             EditorGUILayout.BeginHorizontal();
 
-            m_Note = EditorGUILayout.TextField(m_NoteContent, m_Note);
+            EditorGUILayout.LabelField(m_NoteContent, GUILayout.Width(60));
+            m_Note = EditorGUILayout.TextField(m_Note);
             if (GUILayout.Button(m_ApplyBtnContent))
             {
                 m_Config.NoteApplyAction?.Invoke(m_Target, m_Note);
@@ -46,7 +52,8 @@ namespace XHierarchy
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
-            m_Identifier = EditorGUILayout.IntField(m_IdentifierContent, m_Identifier);
+            EditorGUILayout.LabelField(m_IdentifierContent, GUILayout.Width(60));
+            m_Identifier = EditorGUILayout.IntField(m_Identifier);
             if (GUILayout.Button(m_ApplyBtnContent))
             {
                 m_Config.IdentifierApplyAction?.Invoke(m_Target, m_Identifier);
@@ -56,6 +63,19 @@ namespace XHierarchy
             EditorGUILayout.EndScrollView();
         }
 
+        private void OnLostFocus()
+        {
+            EditorApplication.delayCall -= DelayClose;
+            EditorApplication.delayCall += DelayClose;
+        }
+
+        private void DelayClose()
+        {
+            if(focusedWindow != this)
+            {
+                Close();
+            }
+        }
     }
 }
 

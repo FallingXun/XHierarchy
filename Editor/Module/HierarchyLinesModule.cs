@@ -6,7 +6,7 @@ namespace XHierarchy
 {
     public class HierarchyLinesModule : IModule
     {
-        private Dictionary<int, bool> m_DepthLastDict = new Dictionary<int, bool>();
+        private Dictionary<int, bool> m_DepthIgnoreDict = new Dictionary<int, bool>();
 
         public string Name
         {
@@ -37,14 +37,14 @@ namespace XHierarchy
         {
             var depth = GetDepth(selectionRect);
 
-            m_DepthLastDict.Clear();
+            m_DepthIgnoreDict.Clear();
             var tf = go.transform.parent;
             var d = depth - 1;
             while (tf != null)
             {
-                if (IsLastIndex(tf))
+                if (IsLastIndex(tf) || IsRoot(tf))
                 {
-                    m_DepthLastDict[d] = true;
+                    m_DepthIgnoreDict[d] = true;
                 }
                 d--;
                 tf = tf.parent;
@@ -58,7 +58,7 @@ namespace XHierarchy
             {
                 for (int i = 1; i <= depth; i++)
                 {
-                    if (m_DepthLastDict.ContainsKey(i))
+                    if (m_DepthIgnoreDict.ContainsKey(i))
                     {
                         // 当前深度的最后一个节点在此节点之前，此节点不需要绘制此深度
                         continue;

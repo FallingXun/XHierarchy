@@ -10,6 +10,8 @@ namespace XHierarchy
 {
     public class ScriptIconsModule : IModule
     {
+        private static readonly GUIContent m_CSharpContent = ContentUtils.CSharpContent;
+
         private List<Component> m_ComponentList = new List<Component>();
         private List<IconData> m_IconDataList = new List<IconData>();
         private Dictionary<Type, int> m_TypeDict = new Dictionary<Type, int>();
@@ -45,7 +47,7 @@ namespace XHierarchy
             {
                 m_TypeDict[config.HandleComponentTypes[i]] = i;
             }
-            m_DefaultIcon = EditorGUIUtility.IconContent("cs Script Icon").image;
+            m_DefaultIcon = m_CSharpContent.image;
         }
 
         public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
@@ -53,6 +55,18 @@ namespace XHierarchy
             m_ComponentList.Clear();
             m_IconDataList.Clear();
             go.GetComponents(m_ComponentList);
+            for (int i = m_ComponentList.Count - 1; i >= 0; i--)
+            {
+                if (m_TypeDict.ContainsKey(m_ComponentList[i].GetType()))
+                {
+                    continue;
+                }
+                m_ComponentList.RemoveAt(i);
+            }
+            m_ComponentList.Sort((a, b) =>
+            {
+                return m_TypeDict[a.GetType()].CompareTo(m_TypeDict[b.GetType()]);
+            });
             if (m_ComponentList.Count > 0)
             {
                 for (int i = 0; i < m_ComponentList.Count; i++)
@@ -61,23 +75,14 @@ namespace XHierarchy
                     {
                         break;
                     }
-                    if (m_TypeDict.TryGetValue(m_ComponentList[i].GetType(), out int value) == false)
-                    {
-                        continue;
-                    }
                     var iconData = new IconData();
                     iconData.component = m_ComponentList[i];
-                    iconData.index = value;
                     iconData.rect = availableRect.SetWidthFromRight(Const.ICON_SIZE);
                     iconData.icon = GetIcon(m_ComponentList[i]);
                     m_IconDataList.Add(iconData);
                     availableRect = availableRect.AddWidth(-Const.ICON_SIZE);
                 }
             }
-            m_IconDataList.Sort((a, b) =>
-            {
-                return a.index.CompareTo(b.index);
-            });
             foreach (var iconData in m_IconDataList)
             {
                 if (GUI.Button(iconData.rect, new GUIContent(iconData.icon), StyleUtils.IconButton))
@@ -126,7 +131,6 @@ namespace XHierarchy
     public struct IconData
     {
         public Component component;
-        public int index;
         public Rect rect;
         public Texture icon;
     }

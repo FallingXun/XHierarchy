@@ -19,10 +19,12 @@ namespace XHierarchy
         {
             if (m_Init == false)
             {
-                EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemGUI;
-                EditorApplication.hierarchyWindowItemOnGUI = OnHierarchyWindowItemGUI + EditorApplication.hierarchyWindowItemOnGUI;
-                EditorApplication.update -= OnUpdate;
+                EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemOnGUI;
+                EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindowItemOnGUI;
+                EditorApplication.update = OnUpdate;
                 EditorApplication.update += OnUpdate;
+                //EditorApplication.searchChanged -= OnSearchChanged;
+                //EditorApplication.searchChanged += OnSearchChanged;
 
                 var hierarchyData = AssetDatabase.LoadAssetAtPath<HierarchyData>(Const.HIERARCHY_ASSET_PATH);
                 if (hierarchyData == null)
@@ -41,10 +43,11 @@ namespace XHierarchy
                     module.Init(m_Config);
                 }
                 m_Init = true;
+                WrapOnGUI();
             }
         }
 
-        private static void OnHierarchyWindowItemGUI(int instanceID, Rect selectionRect)
+        private static void OnHierarchyWindowItemOnGUI(int instanceID, Rect selectionRect)
         {
             if (m_Init == false)
             {
@@ -54,7 +57,7 @@ namespace XHierarchy
             var obj = EditorUtility.InstanceIDToObject(instanceID);
             if (obj is GameObject go)
             {
-                var nameSize = GUI.skin.label.CalcSize(new GUIContent(go.name));
+                var nameSize = GUI.skin.label.CalcSize(new GUIContent(go.name)); 
                 availableRect = selectionRect.MoveX(Const.ICON_SIZE + nameSize.x + m_Config.GameObjectGUILeftOffset)
                                             .AddWidth(-(Const.ICON_SIZE + nameSize.x + m_Config.GameObjectGUILeftOffset + m_Config.GameObjectGUIRightOffset));
                 foreach (var module in m_Config.Modules)
@@ -70,11 +73,12 @@ namespace XHierarchy
                 for (int i = 0; i < EditorSceneManager.sceneCount; i++)
                 {
                     var scene = EditorSceneManager.GetSceneAt(i);
+                    Debug.Log(scene.name);
                     if (scene.GetHashCode() == instanceID)
                     {
                         foreach (var module in m_Config.Modules)
                         {
-                            if (module.Enabled)
+                            //if (module.Enabled)
                             {
                                 availableRect = module.OnSceneGUI(scene, selectionRect, availableRect);
                             }
@@ -94,7 +98,18 @@ namespace XHierarchy
 
         }
 
+        private static void WrapOnGUI()
+        {
+            var sceneHierarchyWindow = ReflectUtils.SceneHierarchyWindow_lastInteractedHierarchyWindow.GetValue(null);
+            var hostView = ReflectUtils.EditorWindow_m_Parent.GetValue(sceneHierarchyWindow);
+            var del = ReflectUtils.HostView_m_OnGUI.GetValue(hostView) as Delegate;
+            Debug.Log(del.Method);
+        }
 
+        private static void OnGUI(EditorWindow window)
+        {
+
+        }
 
     }
 

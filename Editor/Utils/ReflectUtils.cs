@@ -39,6 +39,32 @@ namespace XHierarchy
             }
         }
 
+        private static FieldInfo m_EditorWindow_m_Parent = null;
+        public static FieldInfo EditorWindow_m_Parent
+        {
+            get
+            {
+                if(m_EditorWindow_m_Parent == null)
+                {
+                    m_EditorWindow_m_Parent = typeof(EditorWindow).GetField("m_Parent", m_BindingFlags);
+                }
+                return m_EditorWindow_m_Parent;
+            }
+        }
+
+        private static FieldInfo m_HostView_m_OnGUI = null;
+        public static FieldInfo HostView_m_OnGUI
+        {
+            get
+            {
+                if (m_HostView_m_OnGUI == null)
+                {
+                    m_HostView_m_OnGUI = EditorWindow_m_Parent?.FieldType.GetField("m_OnGUI", m_BindingFlags);
+                }
+                return m_HostView_m_OnGUI;
+            }
+        }
+
 
         #endregion
 
