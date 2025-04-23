@@ -73,7 +73,7 @@ namespace XHierarchy
             }
         }
 
-        private static GUIContent m_ApplyBtnContent = new GUIContent("应用");
+        private static GUIContent m_ApplyBtnContent;
         public static GUIContent ApplyBtnContent
         {
             get
@@ -86,6 +86,18 @@ namespace XHierarchy
             }
         }
 
+        private static GUIContent m_OpenSearchWindowContent;
+        public static GUIContent OpenSearchWindowContent
+        {
+            get
+            {
+                if (m_OpenSearchWindowContent == null)
+                {
+                    m_OpenSearchWindowContent = new GUIContent("打开搜索窗口");
+                }
+                return m_OpenSearchWindowContent;
+            }
+        }
 
         private static GUIContent m_SelectContent;
         public static GUIContent SelectContent
@@ -110,6 +122,20 @@ namespace XHierarchy
                     m_CSharpContent = EditorGUIUtility.IconContent("cs Script Icon");
                 }
                 return m_CSharpContent;
+            }
+        }
+
+
+        private static GUIContent m_CreateAddNewContent;
+        public static GUIContent CreateAddNewContent
+        {
+            get
+            {
+                if (m_CreateAddNewContent == null)
+                {
+                    m_CreateAddNewContent = EditorGUIUtility.IconContent("CreateAddNew");
+                }
+                return m_CreateAddNewContent;
             }
         }
     }

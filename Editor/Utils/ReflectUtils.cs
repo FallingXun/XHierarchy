@@ -39,6 +39,32 @@ namespace XHierarchy
             }
         }
 
+        private static MethodInfo m_SceneHierarchyWindow_OnGUI = null;
+        public static MethodInfo SceneHierarchyWindow_OnGUI
+        {
+            get
+            {
+                if (m_SceneHierarchyWindow_OnGUI == null)
+                {
+                    m_SceneHierarchyWindow_OnGUI = SceneHierarchyWindow?.GetMethod("OnGUI", m_BindingFlags);
+                }
+                return m_SceneHierarchyWindow_OnGUI;
+            }
+        }
+
+        private static MethodInfo m_SceneHierarchyWindow_GetAllSceneHierarchyWindows = null;
+        public static MethodInfo SceneHierarchyWindow_GetAllSceneHierarchyWindows
+        {
+            get
+            {
+                if (m_SceneHierarchyWindow_GetAllSceneHierarchyWindows == null)
+                {
+                    m_SceneHierarchyWindow_GetAllSceneHierarchyWindows = SceneHierarchyWindow?.GetMethod("GetAllSceneHierarchyWindows", m_BindingFlags);
+                }
+                return m_SceneHierarchyWindow_GetAllSceneHierarchyWindows;
+            }
+        }
+
         private static FieldInfo m_EditorWindow_m_Parent = null;
         public static FieldInfo EditorWindow_m_Parent
         {
@@ -51,6 +77,10 @@ namespace XHierarchy
                 return m_EditorWindow_m_Parent;
             }
         }
+
+        #endregion
+
+        #region UnityEditor.HostView
 
         private static FieldInfo m_HostView_m_OnGUI = null;
         public static FieldInfo HostView_m_OnGUI
@@ -65,6 +95,31 @@ namespace XHierarchy
             }
         }
 
+        private static Type m_HostView_EditorWindowDelegate = null;
+        public static Type HostView_EditorWindowDelegate
+        {
+            get
+            {
+                if (m_HostView_EditorWindowDelegate == null)
+                {
+                    m_HostView_EditorWindowDelegate = EditorWindow_m_Parent?.FieldType.GetNestedType("EditorWindowDelegate", m_BindingFlags);
+                }
+                return m_HostView_EditorWindowDelegate;
+            }
+        }
+
+        private static MethodInfo m_HostView_CreateDelegate = null;
+        public static MethodInfo HostView_CreateDelegate
+        {
+            get
+            {
+                if (m_HostView_CreateDelegate == null)
+                {
+                    m_HostView_CreateDelegate = EditorWindow_m_Parent?.FieldType.GetMethod("CreateDelegate", m_BindingFlags);
+                }
+                return m_HostView_CreateDelegate;
+            }
+        }
 
         #endregion
 
@@ -143,6 +198,23 @@ namespace XHierarchy
         }
         #endregion
 
+        #region XHierarchy
+        private static MethodInfo m_HiererchyPatch_OnGUI = null;
+        public static MethodInfo HiererchyPatch_OnGUI
+        {
+            get
+            {
+                if (m_HiererchyPatch_OnGUI == null)
+                {
+                    m_HiererchyPatch_OnGUI = typeof(HierarchyPatch)?.GetMethod("OnGUI", m_BindingFlags);
+                }
+                return m_HiererchyPatch_OnGUI;
+            }
+        }
+
+        #endregion
+
     }
+
 }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 namespace XHierarchy
 {
@@ -97,6 +98,20 @@ namespace XHierarchy
                     m_IdentifierButon.normal.textColor = Color.green;
                 }
                 return m_IdentifierButon;
+            }
+        }
+
+        private static GUIStyle m_ToolbarCreateAddNewDropDown;
+        public static GUIStyle ToolbarCreateAddNewDropDown
+        {
+            get
+            {
+                if(m_ToolbarCreateAddNewDropDown == null)
+                {
+                    var styleName = "ToolbarCreateAddNewDropDown";
+                    m_ToolbarCreateAddNewDropDown = GUI.skin.FindStyle(styleName) ?? EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector).FindStyle(styleName);
+                }
+                    return m_ToolbarCreateAddNewDropDown;
             }
         }
     }

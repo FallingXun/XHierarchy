@@ -38,6 +38,16 @@ namespace XHierarchy
             m_Config = config;
         }
 
+        public void OnGUIBegin(EditorWindow window)
+        {
+
+        }
+
+        public void OnGUIEnd(EditorWindow window)
+        {
+
+        }
+
         public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
         {
             var identifier = m_Config.IdentifierFunc?.Invoke(go);

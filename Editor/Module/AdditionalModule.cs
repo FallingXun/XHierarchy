@@ -36,6 +36,16 @@ namespace XHierarchy
             m_Config = config;
         }
 
+        public void OnGUIBegin(EditorWindow window)
+        {
+
+        }
+
+        public void OnGUIEnd(EditorWindow window)
+        {
+
+        }
+
         public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
         {
             var rect = selectionRect.SetWidth(Const.ICON_SIZE);

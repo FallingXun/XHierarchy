@@ -16,7 +16,7 @@ namespace XHierarchy
 
         private string GetNote(GameObject go)
         {
-            return "";
+            return go.name.Length % 2 > 0 ? "²âÊÔ" : "²âÊÔ½á¹û";
         }
 
         private void SetNote(GameObject go, string note)
@@ -26,7 +26,7 @@ namespace XHierarchy
 
         private int GetIdentifier(GameObject go)
         {
-            return 0;
+            return go.name.Length % 2 > 0 ? 111 : 112;
         }
 
         private void SetIdentifier(GameObject go, int identifier)

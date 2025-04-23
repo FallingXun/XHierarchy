@@ -7,8 +7,6 @@ namespace XHierarchy
 {
     public class ComponentWindow : EditorWindow
     {
-        private static readonly GUIContent m_SelectContent = ContentUtils.SelectContent;
-
         private static ComponentWindow m_InstanceWindow = null;
         private bool IsInstanceWindow
         {
@@ -234,7 +232,7 @@ namespace XHierarchy
             var name = EditorGUIUtility.ObjectContent(m_Component, m_Component.GetType()).text;
             GUI.Label(rect, name, StyleUtils.BoldLabel);
 
-            if (GUI.Button(gameObjectBtnRect, m_SelectContent, StyleUtils.IconButton))
+            if (GUI.Button(gameObjectBtnRect, ContentUtils.SelectContent, StyleUtils.IconButton))
             {
                 Selection.activeGameObject = m_Component.gameObject;
             }

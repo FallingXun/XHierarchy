@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 namespace XHierarchy
 {
@@ -29,6 +30,16 @@ namespace XHierarchy
         }
 
         public void Init(IConfig config)
+        {
+
+        }
+
+        public void OnGUIBegin(EditorWindow window)
+        {
+
+        }
+
+        public void OnGUIEnd(EditorWindow window)
         {
 
         }

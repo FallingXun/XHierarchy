@@ -9,6 +9,7 @@ namespace XHierarchy
     {
         public static bool GetModuleEnabled(string name)
         {
+            return true;
             return PlayerPrefs.GetInt(name, 0) > 0;
         }
 

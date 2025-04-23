@@ -37,6 +37,16 @@ namespace XHierarchy
 
         }
 
+        public void OnGUIBegin(EditorWindow window)
+        {
+
+        }
+
+        public void OnGUIEnd(EditorWindow window)
+        {
+
+        }
+
         public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
         {
             if (selectionRect.x > Const.ITEM_START_X + Const.ITEM_INDENT && selectionRect.SetXMin(0).IsHovered())

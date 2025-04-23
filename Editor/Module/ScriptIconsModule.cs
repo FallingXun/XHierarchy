@@ -10,8 +10,6 @@ namespace XHierarchy
 {
     public class ScriptIconsModule : IModule
     {
-        private static readonly GUIContent m_CSharpContent = ContentUtils.CSharpContent;
-
         private List<Component> m_ComponentList = new List<Component>();
         private List<IconData> m_IconDataList = new List<IconData>();
         private Dictionary<Type, int> m_TypeDict = new Dictionary<Type, int>();
@@ -47,7 +45,17 @@ namespace XHierarchy
             {
                 m_TypeDict[config.HandleComponentTypes[i]] = i;
             }
-            m_DefaultIcon = m_CSharpContent.image;
+            m_DefaultIcon = ContentUtils.CSharpContent.image;
+        }
+
+        public void OnGUIBegin(EditorWindow window)
+        {
+
+        }
+
+        public void OnGUIEnd(EditorWindow window)
+        {
+
         }
 
         public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
