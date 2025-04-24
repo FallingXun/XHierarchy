@@ -41,7 +41,7 @@ namespace XHierarchy
             m_Note = EditorGUILayout.TextField(m_Note);
             if (GUILayout.Button(ContentUtils.ApplyBtnContent))
             {
-                m_Config.Handler.SetNote(m_Target, m_Note);
+                m_Config.SetNote(m_Target, m_Note);
             }
             EditorGUILayout.EndHorizontal();
 
@@ -50,7 +50,7 @@ namespace XHierarchy
             m_Identifier = EditorGUILayout.IntField(m_Identifier);
             if (GUILayout.Button(ContentUtils.ApplyBtnContent))
             {
-                m_Config.Handler.SetIdentifier(m_Target, m_Identifier);
+                m_Config.SetIdentifier(m_Target, m_Identifier);
             }
             EditorGUILayout.EndHorizontal();
 

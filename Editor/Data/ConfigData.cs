@@ -10,21 +10,9 @@ namespace XHierarchy
 {
     public sealed class ConfigData : ScriptableObject, IConfig
     {
-        private List<IModule> m_Modules = new List<IModule>();
-
         private List<Type> m_ComponentTypes = new List<Type>();
 
-        private IHandler m_Handler = null;
-
         #region IConfig
-
-        public List<IModule> Modules
-        {
-            get
-            {
-                return m_Modules;
-            }
-        }
 
         public List<Type> ComponentTypes
         {
@@ -34,21 +22,41 @@ namespace XHierarchy
             }
         }
 
-        public IHandler Handler
+        public string GetNote(GameObject go)
         {
-            get
-            {
-                return m_Handler;
-            }
+            return "";
+        }
+
+        public void SetNote(GameObject go, string note)
+        {
+
+        }
+
+        public int GetIdentifier(GameObject go)
+        {
+            return 0;
+        }
+
+        public void SetIdentifier(GameObject go, int identifier)
+        {
+
+        }
+
+        public Vector2 GetItemGUIRange(GameObject go)
+        {
+            return Vector2.zero;
+        }
+
+        public void SetItemGUIRange(GameObject go, Vector2 range)
+        {
+
         }
 
 
         public void Init()
         {
-            m_Modules.Clear();
             m_ComponentTypes.Clear();
 
-            var typeIModule = typeof(IModule);
             var typeComponent = typeof(Component);
 
             var assemblyList = new List<Assembly>();
@@ -67,26 +75,12 @@ namespace XHierarchy
                     {
                         continue;
                     }
-                    if (typeIModule.IsAssignableFrom(type))
+                    if (type.IsSubclassOf(typeComponent))
                     {
-                        var module = Activator.CreateInstance(type) as IModule;
-                        m_Modules.Add(module);
-                    }
-                    else
-                    {
-                        if (type.IsSubclassOf(typeComponent))
-                        {
-                            m_ComponentTypes.Add(type);
-                        }
+                        m_ComponentTypes.Add(type);
                     }
                 }
             }
-            m_Modules.Sort((a, b) => 
-            {
-                return a.Priority.CompareTo(b.Priority);
-            });
-
-            m_Handler = new DefaultHandler();
         }
 
         #endregion

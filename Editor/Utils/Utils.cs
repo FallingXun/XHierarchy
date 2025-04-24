@@ -9,7 +9,6 @@ namespace XHierarchy
     {
         public static bool GetModuleEnabled(string name)
         {
-            return true;
             return PlayerPrefs.GetInt(name, 0) > 0;
         }
 
@@ -26,6 +25,19 @@ namespace XHierarchy
             return path;
         }
 
+
+        public static void CreateCustomConfigDataScript()
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), Const.ASSET_PATH, "Editor/CustomConfigData.cs");
+            if (File.Exists(path))
+            {
+                return;
+            }
+            using(var file = File.CreateText(path))
+            {
+                file.Write(Template.CustomConfigData);
+            }
+        }
     }
 
 }

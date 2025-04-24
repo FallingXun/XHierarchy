@@ -15,7 +15,7 @@ namespace XHierarchy
         {
             get
             {
-                return typeof(NoteModule).FullName;
+                return Const.KEY_NOTE;
             }
         }
 
@@ -58,7 +58,7 @@ namespace XHierarchy
 
         public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
         {
-            var note = m_Config.Handler.GetNote(go);
+            var note = m_Config.GetNote(go);
             if (string.IsNullOrWhiteSpace(note) == false)
             {
                 var rect = availableRect.SetMinWidth(GUI.skin.button.CalcSize(new GUIContent(note)).x);

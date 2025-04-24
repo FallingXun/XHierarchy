@@ -15,7 +15,7 @@ namespace XHierarchy
         {
             get
             {
-                return typeof(ActiveModule).FullName;
+                return Const.KEY_ACTIVE;
             }
         }
 

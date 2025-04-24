@@ -14,7 +14,7 @@ namespace XHierarchy
             {
                 if(m_SearchTitleContent == null)
                 {
-                    m_SearchTitleContent = new GUIContent("自定义搜索栏");
+                    m_SearchTitleContent = new GUIContent("Customize Search Bar");
                 }
                 return m_SearchTitleContent;
             }
@@ -28,7 +28,7 @@ namespace XHierarchy
             {
                 if (m_AdditionalTitleContent == null)
                 {
-                    m_AdditionalTitleContent = new GUIContent("标识信息");
+                    m_AdditionalTitleContent = new GUIContent("Additional Info");
                 }
                 return m_AdditionalTitleContent;
             }
@@ -41,7 +41,7 @@ namespace XHierarchy
             {
                 if (m_ObjectContent == null)
                 {
-                    m_ObjectContent = new GUIContent("对象");
+                    m_ObjectContent = new GUIContent("Object");
                 }
                 return m_ObjectContent;
             }
@@ -54,7 +54,7 @@ namespace XHierarchy
             {
                 if (m_NoteContent == null)
                 {
-                    m_NoteContent = new GUIContent("注释");
+                    m_NoteContent = new GUIContent("Note");
                 }
                 return m_NoteContent;
             }
@@ -67,7 +67,7 @@ namespace XHierarchy
             {
                 if (m_IdentifierContent == null)
                 {
-                    m_IdentifierContent = new GUIContent("标识号");
+                    m_IdentifierContent = new GUIContent("Identifier");
                 }
                 return m_IdentifierContent;
             }
@@ -80,7 +80,7 @@ namespace XHierarchy
             {
                 if (m_ApplyBtnContent == null)
                 {
-                    m_ApplyBtnContent = new GUIContent("应用");
+                    m_ApplyBtnContent = new GUIContent("Apply");
                 }
                 return m_ApplyBtnContent;
             }
@@ -93,7 +93,7 @@ namespace XHierarchy
             {
                 if (m_OpenSearchWindowContent == null)
                 {
-                    m_OpenSearchWindowContent = new GUIContent("打开搜索窗口");
+                    m_OpenSearchWindowContent = new GUIContent("Open Search Window");
                 }
                 return m_OpenSearchWindowContent;
             }

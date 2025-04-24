@@ -13,6 +13,7 @@ namespace XHierarchy
     {
         private static bool m_Init = false;
         private static IConfig m_Config = null;
+        private static List<IModule> m_Modules = new List<IModule>();
         private static EditorWindow m_SceneHierarchyWindow = null;
         private static Action<EditorWindow> m_GUIBegin = null;
         private static Action<EditorWindow> m_GUIEnd = null;
@@ -29,22 +30,7 @@ namespace XHierarchy
                 m_GUIBegin = OnGUIBegin;
                 m_GUIEnd = OnGUIEnd;
 
-                var hierarchyData = AssetDatabase.LoadAssetAtPath<HierarchyData>(Const.HIERARCHY_ASSET_PATH);
-                if (hierarchyData == null)
-                {
-                    throw new Exception("Hierarchy Data Asset is missing, please use 'XHierarchy/Data/Create Hierarchy Data Asset' to generate!");
-                }
-                m_Config = hierarchyData.Config;
-                if (m_Config == null)
-                {
-                    throw new Exception("Hierarchy Config is missing, please delete the 'HierarchyData.asset' and use 'XHierarchy/Data/Create Hierarchy Data Asset' to regenerate!");
-                }
-                m_Config.Init();
-
-                foreach (var module in m_Config.Modules)
-                {
-                    module.Init(m_Config);
-                }
+                InitConfig();
                 InitSceneHierarchyWindow();
 
                 m_Init = true; 
@@ -63,12 +49,12 @@ namespace XHierarchy
             {
                 var nameSize = GUI.skin.label.CalcSize(new GUIContent(go.name));
                 var availableWidth = availableRect.width - Const.ICON_SIZE - nameSize.x;
-                var range = m_Config.Handler.GetItemGUIRange(go);
+                var range = m_Config.GetItemGUIRange(go);
                 var offsetFromLeft = range.x >= 0 ? range.x : (availableWidth - range.x).Max(0);
                 var offsetFromRight = range.y >= 0 ? range.y : (availableWidth - range.y).Max(0);
                 availableRect = availableRect.SetWidthFromRight(availableWidth).MoveX(offsetFromLeft)
                                             .AddWidth(-(offsetFromLeft + offsetFromRight));
-                foreach (var module in m_Config.Modules)
+                foreach (var module in m_Modules)
                 {
                     if (module.Enabled)
                     {
@@ -78,16 +64,12 @@ namespace XHierarchy
             }
             else
             {
-                if (obj != null)
-                {
-                    Debug.Log(obj.name + "  " + obj.GetType() + "   " + selectionRect);
-                }
                 for (int i = 0; i < EditorSceneManager.sceneCount; i++)
                 {
                     var scene = EditorSceneManager.GetSceneAt(i);
                     if (scene.GetHashCode() == instanceID)
                     {
-                        foreach (var module in m_Config.Modules)
+                        foreach (var module in m_Modules)
                         {
                             if (module.Enabled)
                             {
@@ -107,6 +89,46 @@ namespace XHierarchy
                 return;
             }
             WrapOnGUI(true);
+        }
+
+        public static void InitConfig()
+        {
+            var hierarchyData = AssetDatabase.LoadAssetAtPath<HierarchyData>(Const.HIERARCHY_ASSET_PATH);
+            if (hierarchyData == null)
+            {
+                throw new Exception("Hierarchy Data Asset is missing, please use 'XHierarchy/Data/Create Hierarchy Data Asset' to generate!");
+            }
+            m_Config = hierarchyData.Config;
+            if (m_Config == null)
+            {
+                throw new Exception("Hierarchy Config is missing, please delete the 'HierarchyData.asset' and use 'XHierarchy/Data/Create Hierarchy Data Asset' to regenerate!");
+            }
+            m_Config.Init();
+
+            m_Modules.Clear();
+            var typeIModule = typeof(IModule);
+            var types = Assembly.GetExecutingAssembly().GetTypes();
+            foreach (var type in types)
+            {
+                if (type.IsInterface || type.IsAbstract)
+                {
+                    continue;
+                }
+                if (typeIModule.IsAssignableFrom(type))
+                {
+                    var module = Activator.CreateInstance(type) as IModule;
+                    m_Modules.Add(module);
+                }
+            }
+            m_Modules.Sort((a, b) =>
+            {
+                return a.Priority.CompareTo(b.Priority);
+            });
+
+            foreach (var module in m_Modules)
+            {
+                module.Init(m_Config);
+            }
         }
 
         private static void InitSceneHierarchyWindow()
@@ -191,7 +213,7 @@ namespace XHierarchy
 
         private static void OnGUIBegin(EditorWindow window)
         {
-            foreach (var module in m_Config.Modules)
+            foreach (var module in m_Modules)
             {
                 if (module.Enabled)
                 {
@@ -202,7 +224,7 @@ namespace XHierarchy
 
         private static void OnGUIEnd(EditorWindow window)
         {
-            foreach (var module in m_Config.Modules)
+            foreach (var module in m_Modules)
             {
                 if (module.Enabled)
                 {

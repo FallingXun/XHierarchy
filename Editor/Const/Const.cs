@@ -35,7 +35,15 @@ namespace XHierarchy
 
         public const string DEFAULT_CONFIG_PATH = ASSET_PATH + "/Editor/ConfigData.asset";
 
+        public const string CUSTOM_CONFIG_PATH = ASSET_PATH + "/Editor/CustomConfigData.asset";
 
+        public const string KEY_ACTIVE = "Show Item Active Toggle";
+        public const string KEY_ADDITIONAL = "Open Item Icon Click";
+        public const string KEY_HIERARCHY_LINE = "Show Hierarchy Line";
+        public const string KEY_IDENTIFIER = "Show Item Identifier";
+        public const string KEY_NOTE = "Show Item Note";
+        public const string KEY_SCRIPT_ICONS = "Show Script Icons";
+        public const string KEY_SEARCH = "Open Additional Search";
     }
 
 }

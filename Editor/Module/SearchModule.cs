@@ -16,7 +16,7 @@ namespace XHierarchy
         {
             get
             {
-                return typeof(SearchModule).FullName;
+                return Const.KEY_SEARCH;
             }
         }
 
@@ -53,7 +53,7 @@ namespace XHierarchy
         public void OnGUIEnd(EditorWindow window)
         {
 
-            var rect = window.position.SetPosition(0, 0).SetHeightFromBottom(21);
+            var rect = window.position.SetPosition(40, 0).SetWidth(20).SetHeight(20);
             //GUILayout.BeginHorizontal(EditorStyles.toolbar);
 
             if (GUI.Button(rect, ContentUtils.OpenSearchWindowContent))

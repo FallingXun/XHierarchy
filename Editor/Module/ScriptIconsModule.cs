@@ -21,7 +21,7 @@ namespace XHierarchy
         {
             get
             {
-                return typeof(ScriptIconsModule).FullName;
+                return Const.KEY_SCRIPT_ICONS;
             }
         }
 

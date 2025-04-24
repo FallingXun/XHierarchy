@@ -60,7 +60,6 @@ namespace XHierarchy
             {
                 if (string.IsNullOrEmpty(m_SearchFilter) || item.Value.Contains(m_SearchFilter))
                 {
-
                     EditorGUILayout.BeginHorizontal(StyleUtils.GroupBox);
                     EditorGUILayout.LabelField(item.Key.name, GUILayout.Width(200));
                     EditorGUILayout.LabelField(item.Value, m_Styles[m_SelectIndex], GUILayout.Width(250));
@@ -119,12 +118,12 @@ namespace XHierarchy
             {
                 return;
             }
-            var note = m_Config.Handler.GetNote(go);
+            var note = m_Config.GetNote(go);
             if (string.IsNullOrEmpty(note) == false)
             {
                 m_NoteDict[go] = note;
             }
-            var identifier = m_Config.Handler.GetIdentifier(go);
+            var identifier = m_Config.GetIdentifier(go);
             if (identifier > 0)
             {
                 m_IdentifierDict[go] = identifier.ToString();

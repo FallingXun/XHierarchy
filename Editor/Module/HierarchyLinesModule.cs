@@ -13,7 +13,7 @@ namespace XHierarchy
         {
             get
             {
-                return typeof(HierarchyLinesModule).FullName;
+                return Const.KEY_HIERARCHY_LINE;
             }
         }
 

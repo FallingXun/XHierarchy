@@ -16,7 +16,7 @@ namespace XHierarchy
         {
             get
             {
-                return typeof(IdentifierModule).FullName;
+                return Const.KEY_IDENTIFIER;
             }
         }
 
@@ -59,7 +59,7 @@ namespace XHierarchy
 
         public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
         {
-            var identifier = m_Config.Handler.GetIdentifier(go);
+            var identifier = m_Config.GetIdentifier(go);
             if (identifier > 0)
             {
                 var str = identifier.ToString();
