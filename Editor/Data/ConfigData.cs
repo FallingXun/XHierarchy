@@ -12,27 +12,9 @@ namespace XHierarchy
     {
         private List<IModule> m_Modules = new List<IModule>();
 
-        private List<Type> m_HandleComponentTypes = new List<Type>();
+        private List<Type> m_ComponentTypes = new List<Type>();
 
-        private string GetNote(GameObject go)
-        {
-            return go.name.Length % 2 > 0 ? "²âÊÔ" : "²âÊÔ½á¹û";
-        }
-
-        private void SetNote(GameObject go, string note)
-        {
-
-        }
-
-        private int GetIdentifier(GameObject go)
-        {
-            return go.name.Length % 2 > 0 ? 111 : 112;
-        }
-
-        private void SetIdentifier(GameObject go, int identifier)
-        {
-
-        }
+        private IHandler m_Handler = null;
 
         #region IConfig
 
@@ -44,59 +26,19 @@ namespace XHierarchy
             }
         }
 
-        public float GameObjectGUILeftOffset
+        public List<Type> ComponentTypes
         {
             get
             {
-                return 0;
+                return m_ComponentTypes;
             }
         }
 
-        public float GameObjectGUIRightOffset
+        public IHandler Handler
         {
             get
             {
-                return 0;
-            }
-        }
-
-        public List<Type> HandleComponentTypes
-        {
-            get
-            {
-                return m_HandleComponentTypes;
-            }
-        }
-
-        public Func<GameObject, string> NoteFunc
-        {
-            get
-            {
-                return GetNote;
-            }
-        }
-
-        public Action<GameObject, string> NoteApplyAction
-        {
-            get
-            {
-                return SetNote;
-            }
-        }
-
-        public Func<GameObject, int> IdentifierFunc
-        {
-            get
-            {
-                return GetIdentifier;
-            }
-        }
-
-        public Action<GameObject, int> IdentifierApplyAction
-        {
-            get
-            {
-                return SetIdentifier;
+                return m_Handler;
             }
         }
 
@@ -104,7 +46,7 @@ namespace XHierarchy
         public void Init()
         {
             m_Modules.Clear();
-            m_HandleComponentTypes.Clear();
+            m_ComponentTypes.Clear();
 
             var typeIModule = typeof(IModule);
             var typeComponent = typeof(Component);
@@ -134,11 +76,17 @@ namespace XHierarchy
                     {
                         if (type.IsSubclassOf(typeComponent))
                         {
-                            m_HandleComponentTypes.Add(type);
+                            m_ComponentTypes.Add(type);
                         }
                     }
                 }
             }
+            m_Modules.Sort((a, b) => 
+            {
+                return a.Priority.CompareTo(b.Priority);
+            });
+
+            m_Handler = new DefaultHandler();
         }
 
         #endregion

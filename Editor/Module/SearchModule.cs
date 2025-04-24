@@ -32,6 +32,14 @@ namespace XHierarchy
             }
         }
 
+        public int Priority
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
         public void Init(IConfig config)
         {
             m_Config = config;

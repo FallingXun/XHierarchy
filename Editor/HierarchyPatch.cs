@@ -47,7 +47,7 @@ namespace XHierarchy
                 }
                 InitSceneHierarchyWindow();
 
-                m_Init = true;
+                m_Init = true; 
             }
         }
 
@@ -62,8 +62,12 @@ namespace XHierarchy
             if (obj is GameObject go)
             {
                 var nameSize = GUI.skin.label.CalcSize(new GUIContent(go.name));
-                availableRect = selectionRect.MoveX(Const.ICON_SIZE + nameSize.x + m_Config.GameObjectGUILeftOffset)
-                                            .AddWidth(-(Const.ICON_SIZE + nameSize.x + m_Config.GameObjectGUILeftOffset + m_Config.GameObjectGUIRightOffset));
+                var availableWidth = availableRect.width - Const.ICON_SIZE - nameSize.x;
+                var range = m_Config.Handler.GetItemGUIRange(go);
+                var offsetFromLeft = range.x >= 0 ? range.x : (availableWidth - range.x).Max(0);
+                var offsetFromRight = range.y >= 0 ? range.y : (availableWidth - range.y).Max(0);
+                availableRect = availableRect.SetWidthFromRight(availableWidth).MoveX(offsetFromLeft)
+                                            .AddWidth(-(offsetFromLeft + offsetFromRight));
                 foreach (var module in m_Config.Modules)
                 {
                     if (module.Enabled)
@@ -92,7 +96,7 @@ namespace XHierarchy
                         }
                     }
                 }
-            } 
+            }
         }
 
 

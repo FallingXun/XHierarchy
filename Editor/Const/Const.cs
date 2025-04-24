@@ -29,9 +29,11 @@ namespace XHierarchy
 
         public const string PACKAGE_NAME = "Packages/com.xun.hierarchy";
 
-        public const string HIERARCHY_ASSET_PATH = PACKAGE_NAME + "/Editor/HierarchyData.asset";
+        public const string ASSET_PATH = "Assets/XHierarchy";
 
-        public const string DEFAULT_CONFIG_PATH = PACKAGE_NAME + "/Editor/ConfigData.asset";
+        public const string HIERARCHY_ASSET_PATH = ASSET_PATH + "/Editor/HierarchyData.asset";
+
+        public const string DEFAULT_CONFIG_PATH = ASSET_PATH + "/Editor/ConfigData.asset";
 
 
     }

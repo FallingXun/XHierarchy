@@ -31,6 +31,15 @@ namespace XHierarchy
             }
         }
 
+        public int Priority
+        {
+            get
+            {
+                return 2;
+            }
+        }
+
+
 
         public void Init(IConfig config)
         {
@@ -49,7 +58,7 @@ namespace XHierarchy
 
         public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
         {
-            var note = m_Config.NoteFunc?.Invoke(go);
+            var note = m_Config.Handler.GetNote(go);
             if (string.IsNullOrWhiteSpace(note) == false)
             {
                 var rect = availableRect.SetMinWidth(GUI.skin.button.CalcSize(new GUIContent(note)).x);

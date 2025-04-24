@@ -101,19 +101,32 @@ namespace XHierarchy
             }
         }
 
-        private static GUIStyle m_ToolbarCreateAddNewDropDown;
-        public static GUIStyle ToolbarCreateAddNewDropDown
+        private static GUIStyle m_GroupBox;
+        public static GUIStyle GroupBox
         {
             get
             {
-                if(m_ToolbarCreateAddNewDropDown == null)
+                if(m_GroupBox == null)
                 {
-                    var styleName = "ToolbarCreateAddNewDropDown";
-                    m_ToolbarCreateAddNewDropDown = GUI.skin.FindStyle(styleName) ?? EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector).FindStyle(styleName);
+                    m_GroupBox = new GUIStyle("GroupBox");
                 }
-                    return m_ToolbarCreateAddNewDropDown;
+                    return m_GroupBox;
             }
         }
+
+        private static GUIStyle m_SearchTextField;
+        public static GUIStyle SearchTextField
+        {
+            get
+            {
+                if (m_SearchTextField == null)
+                {
+                    m_SearchTextField = new GUIStyle("SearchTextField");
+                }
+                return m_SearchTextField;
+            }
+        }
+
     }
 }
 

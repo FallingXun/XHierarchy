@@ -15,6 +15,7 @@ namespace XHierarchy
 
         private IConfig m_Config;
 
+        private GUIStyle[] m_Styles;
         private GUIContent[] m_Contents;
         private Dictionary<GameObject, string>[] m_Dicts;
         private int m_SelectIndex = 0;
@@ -33,6 +34,7 @@ namespace XHierarchy
 
         private void Init(IConfig config)
         {
+            m_Styles = new GUIStyle[] { StyleUtils.NoteButon, StyleUtils.IdentifierButon };
             m_Contents = new GUIContent[] { ContentUtils.NoteContent, ContentUtils.IdentifierContent };
             m_Dicts = new Dictionary<GameObject, string>[] { m_NoteDict, m_IdentifierDict };
 
@@ -42,10 +44,15 @@ namespace XHierarchy
 
         private void OnGUI()
         {
+            if (m_Config == null)
+            {
+                Close();
+                return;
+            }
             Collect();
             EditorGUILayout.BeginHorizontal();
-            m_SearchFilter = EditorGUILayout.TextField(m_SearchFilter);
-            m_SelectIndex = EditorGUILayout.Popup(m_SelectIndex, m_Contents,GUILayout.Width(100));
+            m_SearchFilter = EditorGUILayout.TextField(m_SearchFilter, StyleUtils.SearchTextField);
+            m_SelectIndex = EditorGUILayout.Popup(m_SelectIndex, m_Contents, GUILayout.Width(100));
             EditorGUILayout.EndHorizontal();
 
             m_ScrollPosition = EditorGUILayout.BeginScrollView(m_ScrollPosition);
@@ -54,9 +61,9 @@ namespace XHierarchy
                 if (string.IsNullOrEmpty(m_SearchFilter) || item.Value.Contains(m_SearchFilter))
                 {
 
-                    EditorGUILayout.BeginHorizontal(new GUIStyle("GroupBox"));
+                    EditorGUILayout.BeginHorizontal(StyleUtils.GroupBox);
                     EditorGUILayout.LabelField(item.Key.name, GUILayout.Width(200));
-                    EditorGUILayout.LabelField(item.Value, StyleUtils.NoteButon, GUILayout.Width(250));
+                    EditorGUILayout.LabelField(item.Value, m_Styles[m_SelectIndex], GUILayout.Width(250));
                     if (GUILayout.Button(ContentUtils.SelectContent, StyleUtils.IconButton))
                     {
                         Selection.activeGameObject = item.Key;
@@ -112,12 +119,12 @@ namespace XHierarchy
             {
                 return;
             }
-            var note = m_Config.NoteFunc(go);
+            var note = m_Config.Handler.GetNote(go);
             if (string.IsNullOrEmpty(note) == false)
             {
                 m_NoteDict[go] = note;
             }
-            var identifier = m_Config.IdentifierFunc(go);
+            var identifier = m_Config.Handler.GetIdentifier(go);
             if (identifier > 0)
             {
                 m_IdentifierDict[go] = identifier.ToString();

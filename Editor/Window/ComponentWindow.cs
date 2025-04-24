@@ -68,9 +68,11 @@ namespace XHierarchy
             GUILayout.Label("", GUILayout.Height(20), GUILayout.ExpandWidth(true));
             var rect = GUILayoutUtility.GetLastRect();
             OnTitleGUI(rect);
+
             HandleDrag(rect);
 
             OnContentGUI();
+            GUILayout.Space(5);
         }
 
         private void OnDestroy()
@@ -251,18 +253,19 @@ namespace XHierarchy
             m_ScrollPosition = EditorGUILayout.BeginScrollView(m_ScrollPosition);
 
             GUILayout.BeginHorizontal();
-            GUILayout.Space(4);
+            GUILayout.Space(5);
             GUILayout.BeginVertical();
 
             m_Editor?.OnInspectorGUI();
 
             GUILayout.Label("", GUILayout.Height(-10), GUILayout.ExpandWidth(true));
+
             if (Event.current.type == EventType.Repaint && m_IsVerticalResizing == false)
             {
                 position = position.SetHeight((GUILayoutUtility.GetLastRect().y + 30).Min(300));
             }
-
             GUILayout.EndVertical();
+            GUILayout.Space(5);
             GUILayout.EndHorizontal();
 
             EditorGUILayout.EndScrollView();

@@ -32,6 +32,15 @@ namespace XHierarchy
             }
         }
 
+        public int Priority
+        {
+            get
+            {
+                return 1;
+            }
+        }
+
+
 
         public void Init(IConfig config)
         {
@@ -50,7 +59,7 @@ namespace XHierarchy
 
         public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
         {
-            var identifier = m_Config.IdentifierFunc?.Invoke(go);
+            var identifier = m_Config.Handler.GetIdentifier(go);
             if (identifier > 0)
             {
                 var str = identifier.ToString();

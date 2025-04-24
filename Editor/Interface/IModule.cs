@@ -12,6 +12,8 @@ namespace XHierarchy
 
         bool Enabled { get; set; }
 
+        int Priority { get; }
+
         void Init(IConfig config);
 
         void OnGUIBegin(EditorWindow window);

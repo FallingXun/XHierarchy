@@ -37,13 +37,22 @@ namespace XHierarchy
             }
         }
 
+        public int Priority
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
+
         public void Init(IConfig config)
         {
             m_Config = config;
             m_TypeDict.Clear();
-            for (int i = 0; i < config.HandleComponentTypes.Count; i++)
+            for (int i = 0; i < config.ComponentTypes.Count; i++)
             {
-                m_TypeDict[config.HandleComponentTypes[i]] = i;
+                m_TypeDict[config.ComponentTypes[i]] = i;
             }
             m_DefaultIcon = ContentUtils.CSharpContent.image;
         }
