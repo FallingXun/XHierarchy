@@ -47,22 +47,24 @@ namespace XHierarchy
 
         public void OnGUIBegin(EditorWindow window)
         {
-
+            // 先绘制点击按钮区域，拦截点击事件
+            var rect = GetSearchButtonRect(window);
+            if (GUI.Button(rect, GUIContent.none))
+            {
+                var position = EditorGUIUtility.GUIToScreenPoint(new Vector2(window.position.SetPosition(0, 0).xMax, window.position.SetPosition(0, 0).yMin));
+                SearchWindow.Create(position, m_Config);
+                Event.current.Use();
+            }
         }
 
         public void OnGUIEnd(EditorWindow window)
         {
-
-            var rect = window.position.SetPosition(40, 0).SetWidth(20).SetHeight(20);
-            //GUILayout.BeginHorizontal(EditorStyles.toolbar);
-
-            if (GUI.Button(rect, ContentUtils.OpenSearchWindowContent))
+            // 仅绘制按钮表现，不做事件处理
+            var rect = GetSearchButtonRect(window);
+            if (GUI.Button(rect, ContentUtils.SearchContent, StyleUtils.IconButton))
             {
-                var position = EditorGUIUtility.GUIToScreenPoint(new Vector2(window.position.SetPosition(0, 0).xMax, window.position.SetPosition(0, 0).yMin));
-                SearchWindow.Create(position, m_Config);
+                
             }
-
-            //GUILayout.EndHorizontal();
         }
 
         public Rect OnItemGUI(GameObject go, Rect selectionRect, Rect availableRect)
@@ -73,6 +75,12 @@ namespace XHierarchy
         public Rect OnSceneGUI(Scene scene, Rect selectionRect, Rect availableRect)
         {
             return availableRect;
+        }
+
+        private Rect GetSearchButtonRect(EditorWindow window)
+        {
+            var rect = window.position.SetPosition(window.position.width - 20, 3).SetWidth(14).SetHeight(14);
+            return rect;
         }
     }
 

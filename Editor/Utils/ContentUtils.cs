@@ -138,6 +138,19 @@ namespace XHierarchy
                 return m_CreateAddNewContent;
             }
         }
+
+        private static GUIContent m_SearchContent;
+        public static GUIContent SearchContent
+        {
+            get
+            {
+                if(m_SearchContent == null)
+                {
+                    m_SearchContent = EditorGUIUtility.IconContent("d_Search Icon");
+                }
+                return m_SearchContent;
+            }
+        }
     }
 
 }

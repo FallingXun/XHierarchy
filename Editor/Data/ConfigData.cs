@@ -24,7 +24,7 @@ namespace XHierarchy
 
         public string GetNote(GameObject go)
         {
-            return "";
+            return null;
         }
 
         public void SetNote(GameObject go, string note)

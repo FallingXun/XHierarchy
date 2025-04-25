@@ -72,6 +72,7 @@ namespace XHierarchy
             HandleDrag(rect);
 
             OnContentGUI();
+
             GUILayout.Space(5);
         }
 
@@ -253,7 +254,7 @@ namespace XHierarchy
             m_ScrollPosition = EditorGUILayout.BeginScrollView(m_ScrollPosition);
 
             GUILayout.BeginHorizontal();
-            GUILayout.Space(5);
+            GUILayout.Space(8);
             GUILayout.BeginVertical();
 
             m_Editor?.OnInspectorGUI();
