@@ -19,13 +19,13 @@ namespace XHierarchy
 
 
         private const string GROUP_FUNCTION = XHIERARCHY + "Function";
-        private const string FUNCTION_ACTIVE = XHIERARCHY + Const.KEY_ACTIVE;
-        private const string FUNCTION_ADDITIONAL = XHIERARCHY + Const.KEY_ADDITIONAL;
-        private const string FUNCTION_HIERARCHY_LINE = XHIERARCHY + Const.KEY_HIERARCHY_LINE;
-        private const string FUNCTION_IDENTIFIER = XHIERARCHY + Const.KEY_IDENTIFIER;
-        private const string FUNCTION_NOTE = XHIERARCHY + Const.KEY_NOTE;
-        private const string FUNCTION_SCRIPT_ICONS = XHIERARCHY + Const.KEY_SCRIPT_ICONS;
-        private const string FUNCTION_SEARCH = XHIERARCHY + Const.KEY_SEARCH;
+        private const string FUNCTION_ACTIVE = XHIERARCHY + "Show Item Active Toggle";
+        private const string FUNCTION_ADDITIONAL = XHIERARCHY + "Open Item Icon Click";
+        private const string FUNCTION_HIERARCHY_LINE = XHIERARCHY + "Show Hierarchy Line";
+        private const string FUNCTION_IDENTIFIER = XHIERARCHY + "Show Item Identifier";
+        private const string FUNCTION_NOTE = XHIERARCHY + "Show Item Note";
+        private const string FUNCTION_SCRIPT_ICONS = XHIERARCHY + "Show Script Icons";
+        private const string FUNCTION_SEARCH = XHIERARCHY + "Open Additional Search";
 
 
         [MenuItem(GROUP_DATA, false, 1)]

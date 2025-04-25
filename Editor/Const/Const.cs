@@ -9,41 +9,41 @@ namespace XHierarchy
         /// <summary>
         /// 第一行的起始位置
         /// </summary>
-        public const float ITEM_START_X = 32;
+        public static readonly float ITEM_START_X = 32;
         /// <summary>
         /// 每一行的缩进（即三角箭头的大小）
         /// </summary>
-        public const float ITEM_INDENT = 14;
+        public static readonly float ITEM_INDENT = 14;
         /// <summary>
         /// 行高
         /// </summary>
-        public const float ITEM_HEIGHT = 16;
+        public static readonly float ITEM_HEIGHT = 16;
         /// <summary>
         /// 层级线粗细
         /// </summary>
-        public const float HIERARCHY_LINE_THICKNESS = 1;
+        public static readonly float HIERARCHY_LINE_THICKNESS = 1;
         /// <summary>
         /// 图标尺寸
         /// </summary>
-        public const float ICON_SIZE = 16;
+        public static readonly float ICON_SIZE = 16;
 
-        public const string PACKAGE_NAME = "Packages/com.xun.hierarchy";
+        public static readonly string PACKAGE_NAME = "Packages/com.xun.hierarchy";
 
-        public const string ASSET_PATH = "Assets/XHierarchy";
+        public static readonly string ASSET_PATH = "Assets/XHierarchy";
 
-        public const string HIERARCHY_ASSET_PATH = ASSET_PATH + "/Editor/HierarchyData.asset";
+        public static readonly string HIERARCHY_ASSET_PATH = ASSET_PATH + "/Editor/HierarchyData.asset";
 
-        public const string DEFAULT_CONFIG_PATH = ASSET_PATH + "/Editor/ConfigData.asset";
+        public static readonly string DEFAULT_CONFIG_PATH = ASSET_PATH + "/Editor/ConfigData.asset";
 
-        public const string CUSTOM_CONFIG_PATH = ASSET_PATH + "/Editor/CustomConfigData.asset";
+        public static readonly string CUSTOM_CONFIG_PATH = ASSET_PATH + "/Editor/CustomConfigData.asset";
 
-        public const string KEY_ACTIVE = "Show Item Active Toggle";
-        public const string KEY_ADDITIONAL = "Open Item Icon Click";
-        public const string KEY_HIERARCHY_LINE = "Show Hierarchy Line";
-        public const string KEY_IDENTIFIER = "Show Item Identifier";
-        public const string KEY_NOTE = "Show Item Note";
-        public const string KEY_SCRIPT_ICONS = "Show Script Icons";
-        public const string KEY_SEARCH = "Open Additional Search";
+        public static readonly string KEY_ACTIVE = "XHIERARCHY_KEY_ACTIVE";
+        public static readonly string KEY_ADDITIONAL = "XHIERARCHY_KEY_ADDITIONAL";
+        public static readonly string KEY_HIERARCHY_LINE = "XHIERARCHY_KEY_HIERARCHY_LINE";
+        public static readonly string KEY_IDENTIFIER = "XHIERARCHY_KEY_IDENTIFIER";
+        public static readonly string KEY_NOTE = "XHIERARCHY_KEY_NOTE";
+        public static readonly string KEY_SCRIPT_ICONS = "XHIERARCHY_KEY_SCRIPT_ICONS";
+        public static readonly string KEY_SEARCH = "XHIERARCHY_KEY_SEARCH";
     }
 
 }

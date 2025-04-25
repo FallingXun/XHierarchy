@@ -6,7 +6,7 @@ namespace XHierarchy
 {
     public class Template 
     {
-        public const string CustomConfigData = @"
+        public static readonly string CustomConfigData = @"
 using System;
 using System.Collections.Generic;
 using UnityEngine;
