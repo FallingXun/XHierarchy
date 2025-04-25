@@ -6,7 +6,6 @@
       <protection id="ctrl flow" />
       <protection id="harden" />
       <protection id="ref proxy" />
-      <protection id="rename" />
     </rule>
   </module>
 </project>
