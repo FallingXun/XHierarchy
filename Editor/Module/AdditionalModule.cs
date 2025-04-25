@@ -59,7 +59,7 @@ namespace XHierarchy
             var rect = selectionRect.SetWidth(Const.ICON_SIZE);
             if (GUI.Button(rect, "", GUIStyle.none))
             {
-                var position = EditorGUIUtility.GUIToScreenPoint(new Vector2(rect.xMax, rect.y));
+                var position = EditorGUIUtility.GUIToScreenPoint(new Vector2(rect.x, rect.yMax));
                 AdditionalWindow.Create(position, m_Config, go);
             }
             return availableRect;
