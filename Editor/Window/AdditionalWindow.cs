@@ -25,6 +25,8 @@ namespace XHierarchy
         {
             m_Config = config;
             m_Target = go;
+            m_Note = config.GetNote(go);
+            m_Identifier = config.GetIdentifier(go);
         }
 
         private void OnGUI()
