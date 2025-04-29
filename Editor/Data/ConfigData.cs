@@ -85,12 +85,6 @@ namespace XHierarchy
             return Vector2.zero;
         }
 
-        public void SetItemGUIRange(GameObject go, Vector2 range)
-        {
-
-        }
-
-
         public void Init()
         {
             m_ComponentTypes.Clear();

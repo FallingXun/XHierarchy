@@ -21,8 +21,6 @@ namespace XHierarchy
         /// <returns></returns>
         Vector2 GetItemGUIRange(GameObject go);
 
-        void SetItemGUIRange(GameObject go, Vector2 range);
-
         string GetNote(GameObject go);
 
         void SetNote(GameObject go, string note);
