@@ -49,14 +49,14 @@
 - 功能：
     - 显示 Hierarchy 中的层级线。
 - 图示：
-![Hierarchy Line](./Images/HierarchyLine.gif)
+    - ![Hierarchy Line](./Images/HierarchyLine.gif)
 ### 显示脚本图标
 - 菜单栏：
     - `XHierarchy/Show Script Icons`。
 - 功能：
     - 显示 GameObject 的组件图标，点击可打开[脚本组件窗口](#脚本组件窗口)。
 - 图示：
-![Script Icons](./Images/ScriptIcons.gif)
+    - ![Script Icons](./Images/ScriptIcons.gif)
 ### 显示对象显隐勾选框
 - 菜单栏：
     - `XHierarchy/Show Item Active Toggle`。
