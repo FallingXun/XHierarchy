@@ -72,7 +72,6 @@ namespace XHierarchy
         private static void _DATA_SET_CUSTOM_CONFIG()
         {
             var type = Assembly.Load("Assembly-CSharp-Editor").GetType("XHierarchy.CustomConfigData");
-            Debug.Log(type);
             if (type == null)
             {
                 return;
@@ -94,7 +93,7 @@ namespace XHierarchy
 
             hierarchyData.SetCustomConfig(customConfigDataSO as IConfig);
             EditorUtility.SetDirty(hierarchyData);
-            AssetDatabase.SaveAssets();
+            AssetDatabase.SaveAssetIfDirty(hierarchyData);
             AssetDatabase.Refresh();
 
             HierarchyPatch.InitConfig();

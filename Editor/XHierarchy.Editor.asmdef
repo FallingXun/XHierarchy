@@ -2,7 +2,7 @@
     "name": "XHierarchy.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:a4a5e56e5f6fe134b9a9f180f0ed785d"
+        "GUID:6cae3dc185e412e448e800ea566bf3f3"
     ],
     "includePlatforms": [
         "Editor"
