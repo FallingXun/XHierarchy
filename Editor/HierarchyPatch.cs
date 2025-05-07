@@ -18,6 +18,24 @@ namespace XHierarchy
         private static Action<EditorWindow> m_GUIBegin = null;
         private static Action<EditorWindow> m_GUIEnd = null;
 
+        private static bool Enabled
+        {
+            get
+            {
+                if (m_Modules != null)
+                {
+                    foreach (var module in m_Modules)
+                    {
+                        if (module.Enabled)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+
         [InitializeOnLoadMethod]
         private static void Init()
         {
@@ -40,6 +58,10 @@ namespace XHierarchy
         private static void OnHierarchyWindowItemOnGUI(int instanceID, Rect selectionRect)
         {
             if (m_Init == false)
+            {
+                return;
+            }
+            if (Enabled == false)
             {
                 return;
             }
@@ -85,6 +107,10 @@ namespace XHierarchy
         private static void OnUpdate()
         {
             if (m_Init == false)
+            {
+                return;
+            }
+            if (Enabled == false)
             {
                 return;
             }
