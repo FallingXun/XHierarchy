@@ -43,8 +43,9 @@ namespace XHierarchy
             {
                 EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemOnGUI;
                 EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindowItemOnGUI;
-                EditorApplication.update = OnUpdate;
+                EditorApplication.update -= OnUpdate;
                 EditorApplication.update += OnUpdate;
+
                 m_GUIBegin = OnGUIBegin;
                 m_GUIEnd = OnGUIEnd;
 
