@@ -12,6 +12,9 @@ namespace XHierarchy
     {
         private const string XHIERARCHY = "XHierarchy/";
 
+        private const string GROUP_MAIN = XHIERARCHY + "Main";
+        private const string MAIN_USE_XHIERACHY = XHIERARCHY + "Use XHierarchy";
+
         private const string GROUP_DATA = XHIERARCHY + "Data";
         private const string DATA_CREATE_HIERARCHY_DATA_ASSET = XHIERARCHY + "Create Hierarchy Data Asset";
         private const string DATA_SET_CUSTOM_CONFIG = XHIERARCHY + "Set Custom Config";
@@ -26,6 +29,35 @@ namespace XHierarchy
         private const string FUNCTION_NOTE = XHIERARCHY + "Show Item Note";
         private const string FUNCTION_SCRIPT_ICONS = XHIERARCHY + "Show Script Icons";
         private const string FUNCTION_SEARCH = XHIERARCHY + "Open Additional Search";
+
+        [MenuItem(GROUP_MAIN, false, -100)]
+        private static void _GROUP_MAIN()
+        {
+
+        }
+
+        [MenuItem(GROUP_MAIN, true, -100)]
+        private static bool __GROUP_MAIN()
+        {
+            return false;
+        }
+
+
+
+        [MenuItem(MAIN_USE_XHIERACHY, false, -99)]
+        private static void _MAIN_USE_XHIERACHY()
+        {
+            var enabled = Utils.GetPatchEnabled();
+            Utils.SetPatchEnabled(!enabled);
+            EditorApplication.RepaintHierarchyWindow();
+        }
+
+        [MenuItem(MAIN_USE_XHIERACHY, true, -99)]
+        private static bool __MAIN_USE_XHIERACHY()
+        {
+            Menu.SetChecked(MAIN_USE_XHIERACHY, Utils.GetModuleEnabled(Const.KEY_XHIERARCHY_PATCH));
+            return true;
+        }
 
 
         [MenuItem(GROUP_DATA, false, 1)]
@@ -96,7 +128,7 @@ namespace XHierarchy
             AssetDatabase.SaveAssetIfDirty(hierarchyData);
             AssetDatabase.Refresh();
 
-            HierarchyPatch.InitConfig();
+            HierarchyPatch.LoadConfig();
             EditorApplication.RepaintHierarchyWindow();
         }
 
@@ -105,7 +137,7 @@ namespace XHierarchy
         {
             var hierarchyData = AssetDatabase.LoadAssetAtPath<HierarchyData>(Const.HIERARCHY_ASSET_PATH);
             hierarchyData.SetCustomConfig(null);
-            HierarchyPatch.InitConfig();
+            HierarchyPatch.LoadConfig();
             EditorApplication.RepaintHierarchyWindow();
         }
 

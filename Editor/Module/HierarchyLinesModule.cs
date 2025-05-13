@@ -19,14 +19,7 @@ namespace XHierarchy
 
         public bool Enabled
         {
-            get
-            {
-                return Utils.GetModuleEnabled(Name);
-            }
-            set
-            {
-                Utils.SetModuleEnabled(Name, value);
-            }
+            get; set;
         }
 
         public int Priority

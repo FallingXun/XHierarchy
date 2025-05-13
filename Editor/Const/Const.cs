@@ -37,6 +37,8 @@ namespace XHierarchy
 
         public static readonly string CUSTOM_CONFIG_PATH = ASSET_PATH + "/Editor/CustomConfigData.asset";
 
+
+        public static readonly string KEY_XHIERARCHY_PATCH = "XHIERARCHY_PATCH";
         public static readonly string KEY_ACTIVE = "XHIERARCHY_KEY_ACTIVE";
         public static readonly string KEY_ADDITIONAL = "XHIERARCHY_KEY_ADDITIONAL";
         public static readonly string KEY_HIERARCHY_LINE = "XHIERARCHY_KEY_HIERARCHY_LINE";

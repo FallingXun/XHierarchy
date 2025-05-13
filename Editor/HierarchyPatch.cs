@@ -18,21 +18,31 @@ namespace XHierarchy
         private static Action<EditorWindow> m_GUIBegin = null;
         private static Action<EditorWindow> m_GUIEnd = null;
 
-        private static bool Enabled
+        private static bool m_Enable = false;
+        public static bool Enabled
         {
             get
             {
-                if (m_Modules != null)
+                return m_Enable;
+            }
+            set
+            {
+                if (value == m_Enable)
                 {
-                    foreach (var module in m_Modules)
-                    {
-                        if (module.Enabled)
-                        {
-                            return true;
-                        }
-                    }
+                    return;
                 }
-                return false;
+                m_Enable = value;
+
+                if (m_Enable)
+                {
+                    Register();
+
+                    LoadConfig();
+                }
+                else
+                {
+                    UnRegister();
+                }
             }
         }
 
@@ -41,18 +51,9 @@ namespace XHierarchy
         {
             if (m_Init == false)
             {
-                EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemOnGUI;
-                EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindowItemOnGUI;
-                EditorApplication.update -= OnUpdate;
-                EditorApplication.update += OnUpdate;
+                Enabled = Utils.GetPatchEnabled();
 
-                m_GUIBegin = OnGUIBegin;
-                m_GUIEnd = OnGUIEnd;
-
-                InitConfig();
-                InitSceneHierarchyWindow();
-
-                m_Init = true; 
+                m_Init = true;
             }
         }
 
@@ -115,10 +116,38 @@ namespace XHierarchy
             {
                 return;
             }
+            // 处理 m_SceneHierarchyWindow 刷新后没有重新注册
             WrapOnGUI(true);
         }
 
-        public static void InitConfig()
+
+        public static void Register()
+        {
+            EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemOnGUI;
+            EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindowItemOnGUI;
+            EditorApplication.update -= OnUpdate;
+            EditorApplication.update += OnUpdate;
+
+            m_GUIBegin = OnGUIBegin;
+            m_GUIEnd = OnGUIEnd;
+
+            FindSceneHierarchyWindow();
+            WrapOnGUI(true);
+        }
+
+        public static void UnRegister()
+        {
+            EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemOnGUI;
+            EditorApplication.update -= OnUpdate;
+
+            m_GUIBegin = null;
+            m_GUIEnd = null;
+
+            FindSceneHierarchyWindow();
+            WrapOnGUI(false);
+        }
+
+        public static void LoadConfig()
         {
             var hierarchyData = AssetDatabase.LoadAssetAtPath<HierarchyData>(Const.HIERARCHY_ASSET_PATH);
             if (hierarchyData == null)
@@ -155,19 +184,28 @@ namespace XHierarchy
             foreach (var module in m_Modules)
             {
                 module.Init(m_Config);
+                module.Enabled = Utils.GetModuleEnabled(module.Name);
             }
         }
 
-        private static void InitSceneHierarchyWindow()
+        public static void SetModuleEnabled(string name, bool enabled)
         {
-            if (m_SceneHierarchyWindow == null)
+            foreach (var module in m_Modules)
             {
-                var windows = Resources.FindObjectsOfTypeAll(ReflectUtils.SceneHierarchyWindow);
-                if (windows != null && windows.Length > 0)
+                if (module.Name == name)
                 {
-                    m_SceneHierarchyWindow = windows[0] as EditorWindow;
+                    module.Enabled = enabled;
                 }
-                WrapOnGUI(true);
+            }
+        }
+
+
+        private static void FindSceneHierarchyWindow()
+        {
+            var windows = Resources.FindObjectsOfTypeAll(ReflectUtils.SceneHierarchyWindow);
+            if (windows != null && windows.Length > 0)
+            {
+                m_SceneHierarchyWindow = windows[0] as EditorWindow;
             }
         }
 
