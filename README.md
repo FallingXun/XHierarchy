@@ -5,8 +5,11 @@
     - 增加自定义标签功能。
     - 增加快捷查找功能。
 
+## 启用插件
+- 通过点击 Unity 菜单栏的 `XHierarchy/Use XHierarchy` ，可以开启 XHierarchy 的功能。开启功能后，会进行配置加载和和模块功能初始化，再次点击即可关闭功能。
+
 ## 初始化配置
-- 通过点击 Unity 菜单栏的 "XHierarchy/Create Hierarchy Data Asset" ，可以完成 XHierarchy 的初始化配置。初始化后会在 `Assets/XHierarchy/Editor` 目录下生成所需的配置文件，具体如下：
+- 通过点击 Unity 菜单栏的 `XHierarchy/Create Hierarchy Data Asset` ，可以完成 XHierarchy 的初始化配置。初始化后会在 `Assets/XHierarchy/Editor` 目录下生成所需的配置文件，具体如下：
     - HierarchyData.asset
         - Xierarchy 的数据配置文件，其中 `Default Config` 为默认配置，`Custom Config` 为自定义配置。优先使用自定义配置，如果没有则使用默认配置。
     - ConfigData.asset
