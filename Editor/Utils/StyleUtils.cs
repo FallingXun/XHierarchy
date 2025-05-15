@@ -41,6 +41,7 @@ namespace XHierarchy
                 if (m_IconButton == null)
                 {
                     m_IconButton = "IconButton";
+                    m_IconButton.alignment = TextAnchor.MiddleCenter;
                 }
                 return m_IconButton;
             }

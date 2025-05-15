@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
 
 namespace XHierarchy
 {
@@ -214,9 +215,21 @@ namespace XHierarchy
 
         private void OnTitleGUI(Rect rect)
         {
-            var closeBtnRect = rect.SetWidthFromRight(20);
-            var lockBtnRect = closeBtnRect.MoveX(-20);
-            var gameObjectBtnRect = lockBtnRect.MoveX(-20);
+            var lastRect = rect.SetWidthFromRight(20);
+            var closeBtnRect = lastRect;
+
+            lastRect = lastRect.MoveX(-20);
+            var lockBtnRect = lastRect;
+
+            lastRect = lastRect.MoveX(-20);
+            var gameObjectBtnRect = lastRect;
+
+            lastRect = lastRect.MoveX(-20);
+            var copyBtnRect = lastRect;
+
+            lastRect = lastRect.MoveX(-20);
+            var pasteBtnRect = lastRect;
+
             GUI.Box(rect, GUIContent.none, StyleUtils.WindowTitle);
             rect = rect.SetWidth(20);
             GUI.Label(rect, m_Icon);
@@ -231,7 +244,7 @@ namespace XHierarchy
                 }
             }
             rect = rect.MoveX(18);
-            rect = rect.SetWidth(gameObjectBtnRect.x - rect.x);
+            rect = rect.SetWidth(lastRect.x - rect.x);
             var name = EditorGUIUtility.ObjectContent(m_Component, m_Component.GetType()).text;
             GUI.Label(rect, name, StyleUtils.BoldLabel);
 
@@ -247,6 +260,17 @@ namespace XHierarchy
             {
                 Close();
             }
+
+            if (GUI.Button(copyBtnRect, new GUIContent("C"), StyleUtils.IconButton))
+            {
+                ComponentUtility.CopyComponent(m_Component);
+            }
+
+            if (GUI.Button(pasteBtnRect, new GUIContent("P"), StyleUtils.IconButton))
+            {
+                ComponentUtility.PasteComponentValues(m_Component);
+            }
+
         }
 
         private void OnContentGUI()
