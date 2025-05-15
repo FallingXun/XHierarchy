@@ -225,10 +225,11 @@ namespace XHierarchy
             var gameObjectBtnRect = lastRect;
 
             lastRect = lastRect.MoveX(-20);
-            var copyBtnRect = lastRect;
+            var pasteBtnRect = lastRect;
 
             lastRect = lastRect.MoveX(-20);
-            var pasteBtnRect = lastRect;
+            var copyBtnRect = lastRect;
+
 
             GUI.Box(rect, GUIContent.none, StyleUtils.WindowTitle);
             rect = rect.SetWidth(20);
