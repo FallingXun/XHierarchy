@@ -100,6 +100,11 @@
 ### 脚本组件窗口
 ![ComponentWindow](./Images/ComponentWindow.png)
 - 脚本组件窗口用于快捷编辑对象上的某个指定组件内容，布局和 Inspector 中组件的内容的基本一致。顶部标题栏的右侧按钮说明如下：
+    - 复制按钮 ![Copy](./Images/Copy.png)
+        - 点击将当前组件的数据复制到粘贴板中。
+    - 粘贴按钮 ![Paste](./Images/Paste.png)
+        - 点击将粘贴板中的组件数据应用到当前组件上。
+        - ![Copy And Paste](./Images/CopyAndPaste.gif)
     - 选择按钮 ![Finger](./Images/Finger.png)
         - 点击选中 GameObject 对象。
     - 锁定按钮 ![Unlock](./Images/Unlock.png)
