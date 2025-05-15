@@ -269,6 +269,7 @@ namespace XHierarchy
 
             if (GUI.Button(pasteBtnRect, new GUIContent("P"), StyleUtils.IconButton))
             {
+                Undo.RecordObject(m_Component, "");
                 ComponentUtility.PasteComponentValues(m_Component);
             }
 
