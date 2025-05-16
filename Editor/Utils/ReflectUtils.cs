@@ -31,7 +31,7 @@ namespace XHierarchy
         {
             get
             {
-                if(m_SceneHierarchyWindow_lastInteractedHierarchyWindow == null)
+                if (m_SceneHierarchyWindow_lastInteractedHierarchyWindow == null)
                 {
                     m_SceneHierarchyWindow_lastInteractedHierarchyWindow = SceneHierarchyWindow?.GetProperty("lastInteractedHierarchyWindow", m_BindingFlags);
                 }
@@ -70,7 +70,7 @@ namespace XHierarchy
         {
             get
             {
-                if(m_EditorWindow_m_Parent == null)
+                if (m_EditorWindow_m_Parent == null)
                 {
                     m_EditorWindow_m_Parent = typeof(EditorWindow).GetField("m_Parent", m_BindingFlags);
                 }
@@ -196,6 +196,36 @@ namespace XHierarchy
                 return m_GUIView_MarkHotRegion;
             }
         }
+        #endregion
+
+        #region UnityEditor.AddComponent
+
+        private static Type m_AddComponentWindow = typeof(Editor).Assembly.GetType("UnityEditor.AddComponent.AddComponentWindow");
+        public static Type AddComponentWindow
+        {
+            get
+            {
+                if (m_AddComponentWindow == null)
+                {
+                    m_AddComponentWindow = typeof(Editor).Assembly.GetType("UnityEditor.AddComponent.AddComponentWindow");
+                }
+                return m_AddComponentWindow;
+            }
+        }
+
+        private static MethodInfo m_AddComponentWindow_Show = null;
+        public static MethodInfo AddComponentWindow_Show
+        {
+            get
+            {
+                if (m_AddComponentWindow_Show == null)
+                {
+                    m_AddComponentWindow_Show = AddComponentWindow?.GetMethod("Show", m_BindingFlags, null, new Type[] { typeof(Rect), typeof(GameObject[])}, null);
+                }
+                return m_AddComponentWindow_Show;
+            }
+        }
+
         #endregion
 
         #region XHierarchy

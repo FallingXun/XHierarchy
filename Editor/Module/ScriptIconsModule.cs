@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEditor;
 using System.Reflection;
+using UnityEditorInternal;
 
 namespace XHierarchy
 {
@@ -16,6 +17,8 @@ namespace XHierarchy
         private Dictionary<Type, Texture> m_TypeIconDict = new Dictionary<Type, Texture>();
         private Texture m_DefaultIcon = null;
         private IConfig m_Config = null;
+
+        private GUIContent[] m_MenuOptions = null;
 
         public string Name
         {
@@ -97,8 +100,72 @@ namespace XHierarchy
             {
                 if (GUI.Button(iconData.rect, new GUIContent(iconData.icon), StyleUtils.IconButton))
                 {
-                    var position = EditorGUIUtility.GUIToScreenPoint(new Vector2(iconData.rect.xMax, iconData.rect.y));
-                    ComponentWindow.Create(position, iconData.component, iconData.icon);
+                    if (Event.current.button == 1)
+                    {
+                        if (m_MenuOptions == null)
+                        {
+                            m_MenuOptions = new GUIContent[]
+                            {
+                                ContentUtils.RemoveComponentContent,
+                                ContentUtils.CopyComponentContent,
+                                ContentUtils.PasteComponentContent,
+                                ContentUtils.PasteComponentAsNewContent,
+                                ContentUtils.AddComponentContent,
+                            };
+                        }
+                        // 显示自定义菜单
+                        EditorUtility.DisplayCustomMenu(iconData.rect.MoveX(iconData.rect.width).MoveY(-iconData.rect.height), m_MenuOptions, -1,
+                            delegate (object userData, string[] opt, int selected)
+                            {
+                                if (userData is IconData)
+                                {
+                                    var data = (IconData)userData;
+                                    switch (selected)
+                                    {
+                                        case 0:
+                                            {
+                                                Undo.DestroyObjectImmediate(data.component);
+                                                GameObject.DestroyImmediate(data.component);
+                                            }
+                                            break;
+                                        case 1:
+                                            {
+                                                ComponentUtility.CopyComponent(data.component);
+                                            }
+                                            break;
+                                        case 2:
+                                            {
+                                                Undo.RecordObject(data.component, "");
+                                                ComponentUtility.PasteComponentValues(data.component);
+                                            }
+                                            break;
+                                        case 3:
+                                            {
+                                                ComponentUtility.PasteComponentAsNew(data.component.gameObject);
+                                            }
+                                            break;
+                                        case 4:
+                                            {
+                                                Selection.activeGameObject = go;
+                                                Rect rect = data.rect.SetPosition(iconData.rect.position).SetWidth(230).SetHeight(80);
+                                                ReflectUtils.AddComponentWindow_Show.Invoke(null, new object[] { rect, new GameObject[] { go } });
+                                            }
+                                            break;
+                                        default:
+                                            {
+                                                Debug.LogFormat("Unknown menu:{0}", opt[selected]);
+                                            }
+                                            break;
+                                    }
+                                }
+                            }, iconData
+                        );
+                    }
+                    else
+                    {
+                        var position = EditorGUIUtility.GUIToScreenPoint(new Vector2(iconData.rect.xMax, iconData.rect.y));
+                        ComponentWindow.Create(position, iconData.component, iconData.icon);
+                    }
                 }
             }
             return availableRect;

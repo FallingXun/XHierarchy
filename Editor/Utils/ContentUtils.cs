@@ -151,6 +151,100 @@ namespace XHierarchy
                 return m_SearchContent;
             }
         }
+
+        private static GUIContent m_CopyContent;
+        public static GUIContent CopyContent
+        {
+            get
+            {
+                if(m_CopyContent == null)
+                {
+                    m_CopyContent = new GUIContent("C");
+                }
+                return m_CopyContent;
+            }
+        }
+
+        private static GUIContent m_PasteContent;
+        public static GUIContent PasteContent
+        {
+            get
+            {
+                if (m_PasteContent == null)
+                {
+                    m_PasteContent = new GUIContent("P");
+                }
+                return m_PasteContent;
+            }
+        }
+
+
+        private static GUIContent m_RemoveComponentContent;
+        public static GUIContent RemoveComponentContent
+        {
+            get
+            {
+                if (m_RemoveComponentContent == null)
+                {
+                    m_RemoveComponentContent = new GUIContent("Remove Component");
+                }
+                return m_RemoveComponentContent;
+            }
+        }
+
+        private static GUIContent m_PasteComponentAsNewContent;
+        public static GUIContent PasteComponentAsNewContent
+        {
+            get
+            {
+                if (m_PasteComponentAsNewContent == null)
+                {
+                    m_PasteComponentAsNewContent = new GUIContent("Paste Component As New");
+                }
+                return m_PasteComponentAsNewContent;
+            }
+        }
+
+        private static GUIContent m_PasteComponentContent;
+        public static GUIContent PasteComponentContent
+        {
+            get
+            {
+                if (m_PasteComponentContent == null)
+                {
+                    m_PasteComponentContent = new GUIContent("Paste Component Values");
+                }
+                return m_PasteComponentContent;
+            }
+        }
+
+
+        private static GUIContent m_CopyComponentContent;
+        public static GUIContent CopyComponentContent
+        {
+            get
+            {
+                if (m_CopyComponentContent == null)
+                {
+                    m_CopyComponentContent = new GUIContent("Copy Component");
+                }
+                return m_CopyComponentContent;
+            }
+        }
+
+
+        private static GUIContent m_AddComponentContent;
+        public static GUIContent AddComponentContent
+        {
+            get
+            {
+                if (m_AddComponentContent == null)
+                {
+                    m_AddComponentContent = new GUIContent("Add Component");
+                }
+                return m_AddComponentContent;
+            }
+        }
     }
 
 }

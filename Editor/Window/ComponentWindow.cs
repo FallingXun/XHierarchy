@@ -262,12 +262,12 @@ namespace XHierarchy
                 Close();
             }
 
-            if (GUI.Button(copyBtnRect, new GUIContent("C"), StyleUtils.IconButton))
+            if (GUI.Button(copyBtnRect, ContentUtils.CopyContent, StyleUtils.IconButton))
             {
                 ComponentUtility.CopyComponent(m_Component);
             }
 
-            if (GUI.Button(pasteBtnRect, new GUIContent("P"), StyleUtils.IconButton))
+            if (GUI.Button(pasteBtnRect, ContentUtils.PasteContent, StyleUtils.IconButton))
             {
                 Undo.RecordObject(m_Component, "");
                 ComponentUtility.PasteComponentValues(m_Component);
