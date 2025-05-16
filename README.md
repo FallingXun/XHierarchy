@@ -57,9 +57,12 @@
 - 菜单栏：
     - `XHierarchy/Show Script Icons`。
 - 功能：
-    - 显示 GameObject 的组件图标，点击可打开[脚本组件窗口](#脚本组件窗口)。
+    - 显示 GameObject 的组件图标，点击可以实现不同功能：
+        - 鼠标左键点击，可打开[脚本组件窗口](#脚本组件窗口)。
+        - 鼠标右键点击，可以打开组件菜单，可对组件进行添加、删除、复制、粘贴。
 - 图示：
     - ![Script Icons](./Images/ScriptIcons.gif)
+    - ![Script Icons Menu](./Images/ScriptIconsMenu.gif)
 ### 显示对象显隐勾选框
 - 菜单栏：
     - `XHierarchy/Show Item Active Toggle`。
