@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/FallingXun/XHierarchy/compare/v1.3.0...v1.4.0) (2025-05-16)
+
+
+### Features
+
+* 优化组件窗口粘贴操作可撤销 ([6c015e9](https://github.com/FallingXun/XHierarchy/commit/6c015e9650b20b8242fecc9a24dcfa8dc53832c6))
+* 新增组件图标右键点击菜单功能 ([2466191](https://github.com/FallingXun/XHierarchy/commit/246619163824ec599dacf0b87212ddd0b62c902f))
+
 ## [1.3.0](https://github.com/FallingXun/XHierarchy/compare/v1.2.0...v1.3.0) (2025-05-15)
 
 
