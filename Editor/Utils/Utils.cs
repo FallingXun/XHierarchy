@@ -38,17 +38,21 @@ namespace XHierarchy
             return path;
         }
 
-
-        public static void CreateCustomConfigDataScript()
+        public static void CreateScript(string assetsPath, string content)
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), Const.ASSET_PATH, "Editor/CustomConfigData.cs");
+            var path = Path.Combine(Directory.GetCurrentDirectory(), Const.ASSET_PATH, assetsPath);
             if (File.Exists(path))
             {
                 return;
             }
-            using(var file = File.CreateText(path))
+            var dir = Path.GetDirectoryName(path);
+            if (Directory.Exists(dir) == false)
             {
-                file.Write(Template.CustomConfigData);
+                Directory.CreateDirectory(dir);
+            }
+            using (var file = File.CreateText(path))
+            {
+                file.Write(content);
             }
         }
     }

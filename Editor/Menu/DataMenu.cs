@@ -75,6 +75,7 @@ namespace XHierarchy
         [MenuItem(DATA_CREATE_HIERARCHY_DATA_ASSET, false, 2)]
         private static void _DATA_CREATE_HIERARCHY_DATA_ASSET()
         {
+
             var configDataSO = ScriptableObject.CreateInstance<ConfigData>();
             var configDirPath = Path.GetDirectoryName(Path.Combine(Directory.GetCurrentDirectory(), Const.DEFAULT_CONFIG_PATH));
             if (Directory.Exists(configDirPath) == false)
@@ -96,9 +97,13 @@ namespace XHierarchy
             AssetDatabase.CreateAsset(hierarchyDataSO as HierarchyData, Const.HIERARCHY_ASSET_PATH);
             AssetDatabase.Refresh();
 
-            Utils.CreateCustomConfigDataScript();
+            Utils.CreateScript("Editor/CustomConfigData.cs", Template.CustomConfigData);
+            Utils.CreateScript("Scripts/AdditionalDataRecorder.cs", Template.AdditionalDataRecorder);
             AssetDatabase.Refresh();
+
+            HierarchyPatch.LoadConfig();
         }
+
 
         [MenuItem(DATA_SET_CUSTOM_CONFIG, false, 3)]
         private static void _DATA_SET_CUSTOM_CONFIG()
@@ -133,10 +138,14 @@ namespace XHierarchy
         }
 
         [MenuItem(DATA_CLEAR_CUSTOM_CONFIG, false, 4)]
-        private static void _DATA_REMOVE_CUSTOM_CONFIG()
+        private static void _DATA_CLEAR_CUSTOM_CONFIG()
         {
             var hierarchyData = AssetDatabase.LoadAssetAtPath<HierarchyData>(Const.HIERARCHY_ASSET_PATH);
             hierarchyData.SetCustomConfig(null);
+            EditorUtility.SetDirty(hierarchyData);
+            AssetDatabase.SaveAssetIfDirty(hierarchyData);
+            AssetDatabase.Refresh();
+
             HierarchyPatch.LoadConfig();
             EditorApplication.RepaintHierarchyWindow();
         }

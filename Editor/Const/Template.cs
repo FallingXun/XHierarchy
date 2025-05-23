@@ -78,6 +78,23 @@ namespace XHierarchy
     }
 }
 ";
+
+        public static readonly string AdditionalDataRecorder = @"
+using UnityEngine;
+
+namespace XHierarchy
+{
+    public class AdditionalDataRecorder : MonoBehaviour
+    {
+#if UNITY_EDITOR
+        public string Note;
+
+        public int Identifier;
+
+#endif
+    }
+}
+";
     }
 
 }

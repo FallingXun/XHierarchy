@@ -10,9 +10,25 @@ namespace XHierarchy
 {
     public sealed class ConfigData : ScriptableObject, IConfig
     {
-        [Tooltip("If turn on,'AdditionalDataRecorder' component will be added to gameObject when call fuction 'SetNote' or 'SetIdentifier")]
-        [SerializeField]
-        private bool m_UseAdditionalComponent = false;
+        private Type m_AdditionalDataRecorderType = null;
+        private Type AdditionalDataRecorderType
+        {
+            get
+            {
+                if (m_AdditionalDataRecorderType == null)
+                {
+                    m_AdditionalDataRecorderType = Assembly.Load("Assembly-CSharp").GetType("XHierarchy.AdditionalDataRecorder");
+                    if (m_AdditionalDataRecorderType != null)
+                    {
+                        m_NoteFieldInfo = m_AdditionalDataRecorderType.GetField("Note");
+                        m_IdentifierFieldInfo = m_AdditionalDataRecorderType.GetField("Identifier");
+                    }
+                }
+                return m_AdditionalDataRecorderType;
+            }
+        }
+        private FieldInfo m_NoteFieldInfo = null;
+        private FieldInfo m_IdentifierFieldInfo = null;
 
         private List<Type> m_ComponentTypes = new List<Type>();
 
@@ -28,12 +44,12 @@ namespace XHierarchy
 
         public string GetNote(GameObject go)
         {
-            if (m_UseAdditionalComponent)
+            if (AdditionalDataRecorderType != null && m_NoteFieldInfo != null)
             {
-                var recorder = go.GetComponent<AdditionalDataRecorder>();
+                var recorder = go.GetComponent(m_AdditionalDataRecorderType);
                 if (recorder != null)
                 {
-                    return recorder.Note;
+                    return (string)m_NoteFieldInfo.GetValue(recorder);
                 }
             }
             return null;
@@ -41,26 +57,30 @@ namespace XHierarchy
 
         public void SetNote(GameObject go, string note)
         {
-            if (m_UseAdditionalComponent)
+            if (AdditionalDataRecorderType != null && m_NoteFieldInfo != null)
             {
-                var recorder = go.GetComponent<AdditionalDataRecorder>();
+                var recorder = go.GetComponent(m_AdditionalDataRecorderType);
                 if (recorder == null)
                 {
-                    recorder = go.AddComponent<AdditionalDataRecorder>();
+                    recorder = go.AddComponent(m_AdditionalDataRecorderType);
                 }
-                recorder.Note = note;
+                m_NoteFieldInfo.SetValue(recorder, note);
                 EditorUtility.SetDirty(go);
+            }
+            else
+            {
+                Debug.LogError("ConfigData need type 'AdditionalDataRecorder' but it is missing, please use 'XHierarchy/Data/Create Hierarchy Data Asset' to generate!");
             }
         }
 
         public int GetIdentifier(GameObject go)
         {
-            if (m_UseAdditionalComponent)
+            if (AdditionalDataRecorderType != null && m_IdentifierFieldInfo != null)
             {
-                var recorder = go.GetComponent<AdditionalDataRecorder>();
+                var recorder = go.GetComponent(m_AdditionalDataRecorderType);
                 if (recorder != null)
                 {
-                    return recorder.Identifier;
+                    return (int)m_IdentifierFieldInfo.GetValue(recorder);
                 }
             }
             return 0;
@@ -68,15 +88,19 @@ namespace XHierarchy
 
         public void SetIdentifier(GameObject go, int identifier)
         {
-            if (m_UseAdditionalComponent)
+            if (AdditionalDataRecorderType != null && m_IdentifierFieldInfo != null)
             {
-                var recorder = go.GetComponent<AdditionalDataRecorder>();
+                var recorder = go.GetComponent(m_AdditionalDataRecorderType);
                 if (recorder == null)
                 {
-                    recorder = go.AddComponent<AdditionalDataRecorder>();
+                    recorder = go.AddComponent(m_AdditionalDataRecorderType);
                 }
-                recorder.Identifier = identifier;
+                m_IdentifierFieldInfo.SetValue(recorder, identifier);
                 EditorUtility.SetDirty(go);
+            }
+            else
+            {
+                Debug.LogError("ConfigData need type 'AdditionalDataRecorder' but it is missing, please use 'XHierarchy/Data/Create Hierarchy Data Asset' to generate!");
             }
         }
 
