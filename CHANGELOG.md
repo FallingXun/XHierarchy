@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.5.0](https://github.com/FallingXun/XHierarchy/compare/v1.4.0...v1.5.0) (2025-05-26)
+
+
+### Features
+
+* 优化默认配置组件脚本动态生成 ([d0b6f79](https://github.com/FallingXun/XHierarchy/commit/d0b6f790b44a7546a0ae820f6c19ea2d78717ffb))
+
+
+### Bug Fixes
+
+* 修复导出dll时无法加载默认配置组件 ([d0b6f79](https://github.com/FallingXun/XHierarchy/commit/d0b6f790b44a7546a0ae820f6c19ea2d78717ffb))
+* 修复无Assembly-CSharp程序集时报错 ([d167b46](https://github.com/FallingXun/XHierarchy/commit/d167b46d2f0c0ae74f5edc4af8edc94aafb2f903))
+* 修复清除自定义配置时正确应用默认配置 ([d0b6f79](https://github.com/FallingXun/XHierarchy/commit/d0b6f790b44a7546a0ae820f6c19ea2d78717ffb))
+* 修复组件脚本missing时获取类型错误 ([d167b46](https://github.com/FallingXun/XHierarchy/commit/d167b46d2f0c0ae74f5edc4af8edc94aafb2f903))
+
 ## [1.4.0](https://github.com/FallingXun/XHierarchy/compare/v1.3.0...v1.4.0) (2025-05-16)
 
 
