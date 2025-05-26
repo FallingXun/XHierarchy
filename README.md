@@ -9,13 +9,15 @@
 - 通过点击 Unity 菜单栏的 `XHierarchy/Use XHierarchy` ，可以开启 XHierarchy 的功能。开启功能后，会进行配置加载和和模块功能初始化，再次点击即可关闭功能。
 
 ## 初始化配置
-- 通过点击 Unity 菜单栏的 `XHierarchy/Create Hierarchy Data Asset` ，可以完成 XHierarchy 的初始化配置。初始化后会在 `Assets/XHierarchy/Editor` 目录下生成所需的配置文件，具体如下：
-    - HierarchyData.asset
+- 通过点击 Unity 菜单栏的 `XHierarchy/Create Hierarchy Data Asset` ，可以完成 XHierarchy 的初始化配置。初始化后会在 `Assets/XHierarchy/` 目录下生成所需的配置文件，具体如下：
+    - ./Editor/HierarchyData.asset
         - Xierarchy 的数据配置文件，其中 `Default Config` 为默认配置，`Custom Config` 为自定义配置。优先使用自定义配置，如果没有则使用默认配置。
-    - ConfigData.asset
+    - ./EditorConfigData.asset
         - 默认的配置文件，用于配置 XHierarchy 的默认行为。
-    - CustomConfigData.cs
+    - ./EditorCustomConfigData.cs
         - 自定义配置的脚本文件，用于配置 XHierarchy 的自定义行为。
+    - ./Scripts/AdditionalDataRecorder.cs
+        - 保存数据的组件，用于默认配置中。
 ### 默认配置
 - 默认配置的脚本组件类型包括：
     - `XHierarchy`
@@ -23,7 +25,7 @@
     - `UnityEngine.UI`
     - `Assembly-CSharp-Editor`
     - `Assembly-CSharp`
-- ConfigData.asset 中的选项 `Use Additional Component` ，勾选后，当为 GameObject 添加自定义数据时，则会在 GameObject 上添加组件 `AdditionalDataRecorder` ，用于保存数据。如果没有勾选，则在默认配置下，无法添加自定义数据。
+- 默认配置会使用 `AdditionalDataRecorder` 组件作为数据记录容器，对于需要使用自定义数据记录的项目，可以在初始化配置后删除此脚本文件，防止后续开发过程中误使用此组件导致异常。
 
 ### 自定义配置
 - 通过点击 `XHierarchy/Set Custom Config` ，会在 `Assets/XHierarchy/Editor` 目录下生成自定义配置文件 `CustomConfigData.asset`，并将配置设置到 `HierarchyData.asset` 的 `Custom Config` 选项中。
