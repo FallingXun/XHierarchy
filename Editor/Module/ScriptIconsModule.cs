@@ -70,7 +70,17 @@ namespace XHierarchy
             go.GetComponents(m_ComponentList);
             for (int i = m_ComponentList.Count - 1; i >= 0; i--)
             {
-                if (m_TypeDict.ContainsKey(m_ComponentList[i].GetType()))
+                Type componentType = null;
+                try
+                {
+                    componentType = m_ComponentList[i].GetType();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Component type exception: \n" + e, go);
+                    componentType = null;
+                }
+                if (componentType != null && m_TypeDict.ContainsKey(componentType))
                 {
                     continue;
                 }

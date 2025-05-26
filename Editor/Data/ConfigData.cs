@@ -17,7 +17,14 @@ namespace XHierarchy
             {
                 if (m_AdditionalDataRecorderType == null)
                 {
-                    m_AdditionalDataRecorderType = Assembly.Load("Assembly-CSharp").GetType("XHierarchy.AdditionalDataRecorder");
+                    try
+                    {
+                        m_AdditionalDataRecorderType = Assembly.Load("Assembly-CSharp").GetType("XHierarchy.AdditionalDataRecorder");
+                    }
+                    catch
+                    {
+
+                    }
                     if (m_AdditionalDataRecorderType != null)
                     {
                         m_NoteFieldInfo = m_AdditionalDataRecorderType.GetField("Note");
