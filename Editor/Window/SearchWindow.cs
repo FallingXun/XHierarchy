@@ -23,6 +23,7 @@ namespace XHierarchy
         private Vector2 m_ScrollPosition = Vector2.zero;
         private PrefabStage m_LastStage = null;
         private List<GameObject> m_Roots = new List<GameObject>();
+        private Scene m_DontDestroyScene;
 
         public static void Create(Vector2 position, IConfig config)
         {
@@ -95,6 +96,17 @@ namespace XHierarchy
                 if (scene != null)
                 {
                     scene.GetRootGameObjects(m_Roots);
+                }
+                if (Application.isPlaying)
+                {
+                    if (m_DontDestroyScene.IsValid() == false)
+                    {
+                        GameObject go = new GameObject("DontDestroyTemp");
+                        DontDestroyOnLoad(go);
+                        m_DontDestroyScene = go.scene;
+                        DestroyImmediate(go);
+                    }
+                    m_DontDestroyScene.GetRootGameObjects(m_Roots);
                 }
             }
             for (int i = m_Roots.Count - 1; i >= 0; i--)
