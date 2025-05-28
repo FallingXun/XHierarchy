@@ -191,7 +191,10 @@ namespace XHierarchy
             var type = component.GetType();
             if (m_TypeIconDict.TryGetValue(type, out Texture texture))
             {
-                return texture;
+                if(texture != null)
+                {
+                    return texture;
+                }
             }
             var content = EditorGUIUtility.ObjectContent(component, type);
             if (content != null && content.image != null)
