@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/FallingXun/XHierarchy/compare/v1.5.0...v1.5.1) (2025-05-28)
+
+
+### Bug Fixes
+
+* 修复DontDestroyOnLoad下的GameObject无法被搜索窗口识别的问题 ([0f97025](https://github.com/FallingXun/XHierarchy/commit/0f97025daf6f646f05e01cef44ac4676c0f6f924))
+
 ## [1.5.0](https://github.com/FallingXun/XHierarchy/compare/v1.4.0...v1.5.0) (2025-05-26)
 
 
