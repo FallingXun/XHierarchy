@@ -72,6 +72,17 @@ namespace XHierarchy
 
         private Rect GetSearchButtonRect(EditorWindow window)
         {
+            var windows = Resources.FindObjectsOfTypeAll(ReflectUtils.SceneHierarchyWindow);
+            if (windows != null && windows.Length > 0)
+            {
+                var sceneHierarchyWindow = windows[0] as EditorWindow;
+                var searchFilter = ReflectUtils.SearchableEditorWindow_m_SearchFilter.GetValue(sceneHierarchyWindow) as string;
+                // 如果搜索框有内容，则不显示新增的搜索功能按钮
+                if (string.IsNullOrWhiteSpace(searchFilter) == false)
+                {
+                    return Rect.zero;
+                }
+            }
             var rect = window.position.SetPosition(window.position.width - 20, 3).SetWidth(14).SetHeight(14);
             return rect;
         }
