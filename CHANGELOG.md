@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/FallingXun/XHierarchy/compare/v1.6.0...v1.6.1) (2025-12-23)
+
+
+### Bug Fixes
+
+* 修复SearchableEditorWindow反射缺失 ([ce741e4](https://github.com/FallingXun/XHierarchy/commit/ce741e4dac035ddcf0c36856196c1cc68a314364))
+
 ## [1.6.0](https://github.com/FallingXun/XHierarchy/compare/v1.5.1...v1.6.0) (2025-12-03)
 
 
