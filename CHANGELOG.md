@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/FallingXun/XHierarchy/compare/v1.5.1...v1.6.0) (2025-12-03)
+
+
+### Features
+
+* 优化搜索按钮显示规则 ([18960b3](https://github.com/FallingXun/XHierarchy/commit/18960b3836e8516266a0b7457aaf5705590c4cc1))
+
 ## [1.5.1](https://github.com/FallingXun/XHierarchy/compare/v1.5.0...v1.5.1) (2025-05-28)
 
 
