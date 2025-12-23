@@ -80,6 +80,23 @@ namespace XHierarchy
 
         #endregion
 
+        #region UnityEditor.SearchableEditorWindow
+
+        private static FieldInfo m_SearchableEditorWindow_m_SearchFilter = null;
+        public static FieldInfo SearchableEditorWindow_m_SearchFilter
+        {
+            get
+            {
+                if (m_SearchableEditorWindow_m_SearchFilter == null)
+                {
+                    m_SearchableEditorWindow_m_SearchFilter = typeof(SearchableEditorWindow).GetField("m_SearchFilter", m_BindingFlags);
+                }
+                return m_SearchableEditorWindow_m_SearchFilter;
+            }
+        }
+
+        #endregion
+
         #region UnityEditor.HostView
 
         private static FieldInfo m_HostView_m_OnGUI = null;
